@@ -9,9 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.5.0",
+    "@emotion/styled": "^11.3.0",
+    "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.60",
+    "@mui/material": "^5.0.4",
+    "firebase": "^4.3.0",
+    "formik": "^2.2.9",
     "next": "11.1.2",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@types/react": "17.0.33",

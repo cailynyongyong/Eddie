@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <div>
       <Homepage />
-      <p>hello main page</p>
+      <p>hello student page</p>
     </div>
   );
 }

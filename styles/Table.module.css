@@ -1,0 +1,30 @@
+.table {
+    width: 85%;
+    margin: auto;
+}
+
+.heading {
+    font-weight: 900;
+}
+
+.subscribe {
+    color: #2361ff;
+}
+
+.unsubscribe {
+    color: #fe3535;
+}
+
+.subscribe a, .unsubscribe a {
+    background-color: #f1f2fe;
+    padding: 8px;
+    border-radius: 10%;
+}
+
+.rows {
+    border-bottom: 1px solid #0f0f0f;
+}
+
+.noShadow {
+    box-shadow: none;
+}

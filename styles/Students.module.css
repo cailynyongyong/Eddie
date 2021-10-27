@@ -1,0 +1,25 @@
+.active {
+    color: #2361ff;
+    border-bottom: 2px solid #2361ff;
+}
+
+.btn {
+    /* display: inline; */
+    margin-right: 30px;
+    font-size: 1.5em;
+}
+
+.width {
+    width: 80%;
+    margin: auto;
+}
+
+.btn:hover {
+    color: #2361ff;
+    font-weight: 500;
+}
+
+#headers {
+    width: 80%;
+    margin: 20px auto;
+}

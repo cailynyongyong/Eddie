@@ -1,10 +1,10 @@
-import Homepage from "../components/modules/Homepage";
+import Questions from "../components/modules/Questions";
 
 export default function Home() {
   return (
     <div>
-      <Homepage />
-      <p>hello main page</p>
+      <Questions />
+      
     </div>
   );
 }

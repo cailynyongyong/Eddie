@@ -53,7 +53,6 @@ export default function Questionspage() {
     return (
       <React.Fragment>
         {/* <Container maxWidth="lg"> */}
-        <Header  />
     
         <Typography variant="h5" component="div" sx={{ m: 3 }}>
             Questions

@@ -14,6 +14,11 @@ import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
+import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
+import BarChartIcon from '@mui/icons-material/BarChart';
+import { useRouter } from "next/router";
+import Button from "./Button";
 
 const drawerWidth = 240;
 
@@ -28,36 +33,41 @@ interface Props {
 export default function ResponsiveDrawer(props: Props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const router = useRouter();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  const activePages = [false, false, false];
+
+  const handlePageClick = (x: number) => {
+    for(let i:number = 0; i < activePages.length; ++i) {
+      activePages[i] = false;
+    }
+    activePages[x] = true;
+  }
 
   const drawer = (
     <div>
       <Toolbar />
       <Divider />
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text}>
+        {['Questions', 'Students', 'Insights'].map((text, index) =>
+          // <Button content={text} icon={index}/>          
+
+
+          <ListItem button key={text} onClick={() => 
+                                        router.push(text=="Questions" ? "/" : text)
+                                        }>
             <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              {index === 0 ? <QuestionAnswerIcon /> : index === 1 ? <SupervisedUserCircleIcon /> : <BarChartIcon />}
             </ListItemIcon>
             <ListItemText primary={text} />
           </ListItem>
-        ))}
+        )}
       </List>
       <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
     </div>
   );
 
@@ -84,7 +94,7 @@ export default function ResponsiveDrawer(props: Props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Responsive drawer
+            Eddie
           </Typography>
         </Toolbar>
       </AppBar>

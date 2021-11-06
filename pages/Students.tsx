@@ -1,12 +1,20 @@
 import Homepage from "../components/modules/Homepage";
 import BasicTable from "../components/modules/Table";
 import styles from "../styles/Students.module.css";
+import Box from '@mui/material/Box';
+import SideBar from "../components/modules/Sidebar";
+import drawerWidth from "../components/modules/Sidebar";
 
 export default function Home() {
   return (
-    <div>
-      <Homepage />
-      <div id={styles.headers}>
+    <Box sx={{ display: 'flex' }}>
+
+        <SideBar />
+        <Box
+          component="main"
+          sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
+        >
+          <div id={styles.headers}>
         <a href="#" className={styles.active + ' ' + styles.btn}>Students</a>
         <a href="#" className={styles.btn}>Teaching Assistants</a>
       </div>
@@ -16,7 +24,9 @@ export default function Home() {
       <div id="table">
         <BasicTable />
       </div>
-    </div>
+        </Box>
+    </Box>
+    
   );
 }
 

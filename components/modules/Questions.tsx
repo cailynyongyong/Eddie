@@ -10,38 +10,9 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
+import Question from "./Question"
+import Container from "@mui/material/Container";
 
-const bull = (
-    <Box
-      component="span"
-      sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-    >
-      •
-    </Box>
-  );
-  
-  const card = (
-    <React.Fragment>
-      <CardContent>
-      <Typography variant="h6" component="div" display="inline">
-          CONCEPTUAL QUESTION
-        </Typography>
-        <Typography variant="h6" component="div" display="inline">
-          {bull}5 students asked
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small">What is the definition of css?</Button>
-        <Button variant="contained" size="small">Answer</Button>
-        <Button variant="contained" size="small">Assign to TA</Button>
-      </CardActions>
-      <CardContent>
-      <Typography variant="body2">
-          What is the definition of css?
-        </Typography>
-      </CardContent>
-    </React.Fragment>
-  );
 
 export default function Questionspage() {
     const [age, setAge] = React.useState('');
@@ -52,12 +23,12 @@ export default function Questionspage() {
 
     return (
       <React.Fragment>
-        {/* <Container maxWidth="lg"> */}
-    
+        <Container maxWidth="lg">
+
         <Typography variant="h5" component="div" sx={{ m: 3 }}>
             Questions
         </Typography>
-        <Typography variant="subtitle1" component="div" sx={{ m: 3 }}>
+       <Typography variant="subtitle1" component="div" sx={{ m: 3 }}>
             All questions submitted by students appear here. 
         </Typography>
         <Typography sx={{ m:3 }} color="text.secondary" display="inline">
@@ -101,18 +72,18 @@ export default function Questionspage() {
     </div>
 
     <Box width="95%" sx={{ m: 3 }}>
-      <Card variant="outlined">{card}</Card>
+      <Question />
     </Box>
 
     <Box width="95%" sx={{ m: 3 }}>
-      <Card variant="outlined">{card}</Card>
+      <Question />
     </Box>
 
     <Box width="95%" sx={{ m: 3 }}>
-      <Card variant="outlined">{card}</Card>
+      <Question />
     </Box>
 
-        {/* </Container> */}
+        </Container>
       </React.Fragment>
     );
   }

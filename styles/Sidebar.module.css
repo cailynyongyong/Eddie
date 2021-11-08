@@ -1,0 +1,13 @@
+.right_align {
+    text-align: right;
+    float: right;
+    margin-left: auto;
+}
+
+.top_bar {
+    background-color: #F3F3F8;
+}
+
+.black {
+    color: black;
+}

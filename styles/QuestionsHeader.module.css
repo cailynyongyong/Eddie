@@ -1,0 +1,25 @@
+.left{
+    /* display: inline; */
+    float: left;
+    padding-top: 15px;
+    max-width: 50%;
+    margin: 0;
+}
+
+.inline {
+    display: inline-block;
+}
+
+.content_right {
+    float: right;
+    margin-right: 50px;
+}
+
+.link {
+    background-color: #F3F3F8;
+    padding: 15px;
+    border-radius: 5%;
+    font-weight: 700;
+    padding-right: 40px;
+    margin-top: 8px;
+}

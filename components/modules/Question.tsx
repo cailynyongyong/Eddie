@@ -10,38 +10,52 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
+import styles from "../../styles/Question.module.css";
 
 const bull = (
-    <Box
-      component="span"
-      sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-    >
-      •
-    </Box>
-  );
+  <Box
+    component="span"
+    sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
+  >
+    •
+  </Box>
+);
+
+interface Props {
+  questionType: string,
+  questionCount: number,
+  question: string,
+  description: string,
+  answers: string[],
+  ta: string
+}
 
 
-export default function Question() {
-    return (
-    <React.Fragment>
+export default function Question(props: Props) {
+
+  
+  return (
+    <div className={[props.answers ? "" : styles.unanswered, styles.question_container].join(" ")}>
       <CardContent>
-      <Typography variant="h6" component="div" display="inline">
-          CONCEPTUAL QUESTION
+        <Typography variant="h6" component="div" display="inline">
+          {props.questionType.toUpperCase()} QUESTION
         </Typography>
         <Typography variant="h6" component="div" display="inline">
-          {bull}5 students asked
+          {bull}{props.questionCount} student(s) asked
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">What is the definition of css?</Button>
-        <Button variant="contained" size="small">Answer</Button>
-        <Button variant="contained" size="small">Assign to TA</Button>
+        <Button className={[styles.margin, styles.question].join(" ")} size="large">{props.question}</Button>
+        <div className={styles.margin_left}>
+          <Button className={[styles.btn].join(" ")} variant="contained" size="large">Answer</Button>
+          <Button className={[styles.btn].join(" ")} variant="contained" size="large">Assign to TA</Button>
+        </div>
       </CardActions>
       <CardContent>
-      <Typography variant="body2">
-          What is the definition of css?
+        <Typography variant="body2">
+          {props.description}
         </Typography>
       </CardContent>
-    </React.Fragment>
-    )
+    </div>
+  )
 }

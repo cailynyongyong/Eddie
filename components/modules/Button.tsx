@@ -27,10 +27,5 @@ export default function Button(props: Props) {
     )
 }
 
-Button.defaultProps = {
-  content : "",
-  link : "/"
-}
-
 // There must be better way than using line 11 and 12
 // Must learn to pass arguments

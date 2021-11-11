@@ -1,5 +1,5 @@
 import Homepage from "../components/modules/Homepage";
-import BasicTable from "../components/modules/Table";
+import BasicTable from "../components/modules/StudentTable";
 import styles from "../styles/Students.module.css";
 import Box from '@mui/material/Box';
 import SideBar from "../components/modules/Sidebar";

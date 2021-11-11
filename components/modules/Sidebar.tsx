@@ -17,8 +17,7 @@ import Typography from '@mui/material/Typography';
 
 import Button from "./Button";
 import styles from "../../styles/Sidebar.module.css";
-import { useState, useEffect } from 'react';
-
+import { Link } from 'react-router-dom';
 
 
 
@@ -87,13 +86,17 @@ export default function ResponsiveDrawer(props: Props) {
           
           <Typography variant="h6" noWrap component="div">
             Eddie
-
+            </Typography>
           <Typography className={styles.right_align + " " + styles.black} variant="h6" noWrap>
             Profile
 
           </Typography>
-          <Button color="inherit">Login</Button>
-          <AuthButton />
+          <div>
+            <Link to={`/auth/signup`}>
+                <button>SignUp</button>
+            </Link>
+            </div>
+          
         </Toolbar>
       </AppBar>
       <Box

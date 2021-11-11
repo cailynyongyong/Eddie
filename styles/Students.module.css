@@ -10,7 +10,7 @@
 }
 
 .width {
-    width: 80%;
+    /* width: 80%; */
     margin: auto;
 }
 
@@ -20,6 +20,6 @@
 }
 
 #headers {
-    width: 80%;
+    /* width: 80%; */
     margin: 20px auto;
 }

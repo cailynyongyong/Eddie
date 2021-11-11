@@ -14,29 +14,14 @@ import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
-import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import { useRouter } from "next/router";
-import QButton from "./Button";
-import Button from '@mui/material/Button';
-import { createTheme } from '@mui/material/styles';
-import { useContext, useState } from "react";
-import { auth } from "../../firebase";
-import { AuthContext } from "../contexts/AuthContext";
-import AuthButton from "./AuthButton";
-import LoginDialog from "./Login";
 
-const theme = createTheme({ 
-  palette: {
-    primary: {
-      main: '#FFFFFF',
-    },
-    secondary: {
-      main: '#03a9f4',
-    },
-  },
-});
+import Button from "./Button";
+import styles from "../../styles/Sidebar.module.css";
+import { useState, useEffect } from 'react';
+
+
+
+
 const drawerWidth = 240;
 
 interface Props {
@@ -50,25 +35,6 @@ interface Props {
 export default function ResponsiveDrawer(props: Props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const router = useRouter();
-  const [openLogin, setOpenLogin] = useState<boolean>(false);
-
-  const { isLoggedInValue, isAuthReadyValue } = useContext(AuthContext);
-  const [isLoggedIn] = isLoggedInValue;
-  const [isAuthReady] = isAuthReadyValue;
-
-  const openLoginForm = () => {
-    setOpenLogin(true);
-  };
-
-  const closeLoginForm = () => {
-    setOpenLogin(false);
-  };
-
-  const handleSignOut = () => {
-    auth.signOut();
-  };
-
 
 
   const handleDrawerToggle = () => {
@@ -76,33 +42,29 @@ export default function ResponsiveDrawer(props: Props) {
   };
 
 
+  const urls = ["/", "chatbot", "Insights", "students&tas"]
+
+
   const drawer = (
     <div>
       <Toolbar />
       <Divider />
       <List>
-        {['Questions', 'Students', 'Insights'].map((text, index) =>
-          // <Button content={text} icon={index}/>          
-
-
-          <ListItem button key={text} onClick={() => 
-                                        router.push(text=="Questions" ? "/" : text)
-                                        }>
-            <ListItemIcon>
-              {index === 0 ? <QuestionAnswerIcon /> : index === 1 ? <SupervisedUserCircleIcon /> : <BarChartIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        )}
+        {["Questions", "Chatbot", "Insights", "Students & TAs"].map((text, index) => (
+          <Button content={text} link={urls[index]}/>
+          
+          // <ListItem button key={text}>
+          //   <ListItemText primary={text} />
+          // </ListItem>
+        ))}
       </List>
-      <Divider />
     </div>
   );
 
   const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box>
+    <>
       <CssBaseline />
       <AppBar
         position="fixed"
@@ -111,7 +73,7 @@ export default function ResponsiveDrawer(props: Props) {
           ml: { sm: `${drawerWidth}px` },
         }}
       >
-        <Toolbar>
+        <Toolbar className={styles.top_bar}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -121,9 +83,14 @@ export default function ResponsiveDrawer(props: Props) {
           >
             <MenuIcon />
           </IconButton>
+
           
           <Typography variant="h6" noWrap component="div">
             Eddie
+
+          <Typography className={styles.right_align + " " + styles.black} variant="h6" noWrap>
+            Profile
+
           </Typography>
           <Button color="inherit">Login</Button>
           <AuthButton />
@@ -161,6 +128,7 @@ export default function ResponsiveDrawer(props: Props) {
           {drawer}
         </Drawer>
       </Box>
-    </Box>
+
+    </>
   );
 }

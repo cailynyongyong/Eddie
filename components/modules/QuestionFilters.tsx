@@ -1,10 +1,7 @@
 import * as React from "react";
 import Typography from "@mui/material/Typography";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import MenuItem from "@mui/material/MenuItem";
-import SelectButton from "./SelectButton";
+import DropdownButton from "./DropdownButton";
 
 
 export default function Filters() {
@@ -31,8 +28,8 @@ export default function Filters() {
                 Student
             </Typography>
             <div>
-                <SelectButton options={questionTypes} values={questionValues} />
-                <SelectButton options={students} values={studentValues} />
+                <DropdownButton options={questionTypes} values={questionValues} />
+                <DropdownButton options={students} values={studentValues} />
 
             </div>
         </div>

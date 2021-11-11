@@ -1,12 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import IPageProps from '../interfaces/page.interface';
 import QuestionsHeader from "../components/modules/QuestionsHeader";
 import SideBar from "../components/modules/Sidebar";
 import Box from '@mui/material/Box';
-import drawerWidth from "../components/modules/Sidebar";
-import windowDimensions from "../components/modules/Sidebar";
-import Filters from "../components/modules/Filters";
+import QuestionFilters from "../components/modules/QuestionFilters";
 import Question from "../components/modules/Question"
 
 const HomePage: React.FunctionComponent<IPageProps> = props => {
@@ -36,7 +33,7 @@ const HomePage: React.FunctionComponent<IPageProps> = props => {
             <QuestionsHeader course="Basic Algorithms" link="eddie.io/basicalgo/questions" />
           </div>
           <div>
-            <Filters />
+            <QuestionFilters />
           </div>
           <div>
             {questions}

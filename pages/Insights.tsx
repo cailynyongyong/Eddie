@@ -3,6 +3,8 @@ import SideBar from "../components/modules/Sidebar";
 import Box from '@mui/material/Box';
 import drawerWidth from "../components/modules/Sidebar";
 import IPageProps from '../interfaces/page.interface';
+import styles from "../styles/Students.module.css";
+import InsightData from "../components/modules/InsightData";
 
 const Insights: React.FunctionComponent<IPageProps> = props => {
   return (
@@ -14,7 +16,7 @@ const Insights: React.FunctionComponent<IPageProps> = props => {
           component="main"
           sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
         >
-          <p>Hello insight page</p>
+          <InsightData />
         </Box>
     </Box>
   );

@@ -10,28 +10,28 @@ const routes: IRoute[] = [
         exact: true,
         component: HomePage,
         name: 'Home Page',
-        protected: false
+        protected: true
     },
     {
         path: '/auth/signup',
         exact: true,
         component: SignUpPage,
         name: 'Login Page',
-        protected: false
+        protected: true
     },
     {
         path: '/students&tas',
         exact: true,
         component: Students,
         name: 'Student Page',
-        protected: false
+        protected: true
     },
     {
         path: '/Insights',
         exact: true,
         component: Insights,
         name: 'Insights Page',
-        protected: false
+        protected: true
     },
 ];
 export default routes;

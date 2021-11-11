@@ -18,8 +18,25 @@ import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import { useRouter } from "next/router";
-import Button from "./Button";
+import QButton from "./Button";
+import Button from '@mui/material/Button';
+import { createTheme } from '@mui/material/styles';
+import { useContext, useState } from "react";
+import { auth } from "../../firebase";
+import { AuthContext } from "../contexts/AuthContext";
+import AuthButton from "./AuthButton";
+import LoginDialog from "./Login";
 
+const theme = createTheme({ 
+  palette: {
+    primary: {
+      main: '#FFFFFF',
+    },
+    secondary: {
+      main: '#03a9f4',
+    },
+  },
+});
 const drawerWidth = 240;
 
 interface Props {
@@ -34,19 +51,30 @@ export default function ResponsiveDrawer(props: Props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const router = useRouter();
+  const [openLogin, setOpenLogin] = useState<boolean>(false);
+
+  const { isLoggedInValue, isAuthReadyValue } = useContext(AuthContext);
+  const [isLoggedIn] = isLoggedInValue;
+  const [isAuthReady] = isAuthReadyValue;
+
+  const openLoginForm = () => {
+    setOpenLogin(true);
+  };
+
+  const closeLoginForm = () => {
+    setOpenLogin(false);
+  };
+
+  const handleSignOut = () => {
+    auth.signOut();
+  };
+
+
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  const activePages = [false, false, false];
-
-  const handlePageClick = (x: number) => {
-    for(let i:number = 0; i < activePages.length; ++i) {
-      activePages[i] = false;
-    }
-    activePages[x] = true;
-  }
 
   const drawer = (
     <div>
@@ -93,9 +121,12 @@ export default function ResponsiveDrawer(props: Props) {
           >
             <MenuIcon />
           </IconButton>
+          
           <Typography variant="h6" noWrap component="div">
             Eddie
           </Typography>
+          <Button color="inherit">Login</Button>
+          <AuthButton />
         </Toolbar>
       </AppBar>
       <Box

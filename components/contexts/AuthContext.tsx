@@ -3,10 +3,10 @@ import firebase from "firebase";
 
 import { auth } from "../../firebase/index";
 
-let a : any;
-export const AuthContext = createContext(a);
 
-export const AuthProvider = (props:any) => {
+export const AuthContext = createContext(null);
+
+export const AuthProvider = (props) => {
   const [user, setUser] = useState<firebase.User | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [isAuthReady, setIsAuthReady] = useState<boolean>(false);

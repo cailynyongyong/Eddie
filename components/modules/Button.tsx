@@ -6,7 +6,7 @@ import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import ListItemText from "@mui/material/ListItemText"
 
-export default function Button(content : any, icon: any) {
+export default function QButton(content : any, icon: any) {
     const router = useRouter()
     content = content.content
     // icon = icon.icon

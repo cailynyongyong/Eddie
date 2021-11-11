@@ -38,14 +38,15 @@ import {
         actions.resetForm();
       },
     });
-  
-    const handleSignup = async ({ email='', password='' }) => {
+    
+    var user;
+    const handleSignup = async ({ email, password}) => {
       setErrMsg("");
       setSuccessMsg("");
       await auth
         .createUserWithEmailAndPassword(email, password)
         .then(async (userCredential) => {
-          var user = userCredential.user;
+          user = userCredential.user;
           const data = {
             _id: userCredential.user.uid,
             email: userCredential.user.email,

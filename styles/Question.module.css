@@ -1,0 +1,49 @@
+.width {
+    width: 100%;
+    margin: auto;
+}
+
+.width_50 {
+    width: 50%;
+}
+
+.margin {
+    margin: auto;
+    padding: 0;
+}
+
+.margin_left {
+    margin-left: auto;
+}
+
+.question_container {
+    width: 85%;
+    border: 2px solid #C4C4C4;
+    margin: auto 2%;
+}
+
+.unanswered {
+    border: 2px #FF00004A solid;
+}
+
+.question {
+    text-decoration: underline;
+    margin-left: 5px;
+    font-weight: 500;
+    font-size: 25px;
+}
+
+.btn {
+    padding: 10px;
+    margin: 0 20px;
+    border-radius: 45%;
+    color: #2361FF;
+    background-color: white;
+    border: #2361FF 1px solid;
+}
+
+.btn:hover {
+    text-decoration: underline;
+    color: white;
+    background-color: #2361FF;
+}

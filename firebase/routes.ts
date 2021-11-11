@@ -1,7 +1,8 @@
 import IRoute from "../interfaces/route.interface";
 import SignUpPage from "../auth/SignUpPage";
-import CartPage from "../pages/CartPage";
 import HomePage from "../pages/HomePage";
+import Students from "../pages/Students";
+import Insights from "../pages/Insights";
 
 const routes: IRoute[] = [
     {
@@ -12,19 +13,25 @@ const routes: IRoute[] = [
         protected: false
     },
     {
-        path: '/cart',
-        exact: true,
-        component: CartPage,
-        name: 'Cart Page',
-        protected: true
-    },
-    {
         path: '/auth/signup',
         exact: true,
         component: SignUpPage,
         name: 'Login Page',
         protected: false
     },
-
+    {
+        path: '/students&tas',
+        exact: true,
+        component: Students,
+        name: 'Student Page',
+        protected: false
+    },
+    {
+        path: '/Insights',
+        exact: true,
+        component: Insights,
+        name: 'Insights Page',
+        protected: false
+    },
 ];
 export default routes;

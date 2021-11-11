@@ -4,8 +4,10 @@ import styles from "../styles/Students.module.css";
 import Box from '@mui/material/Box';
 import SideBar from "../components/modules/Sidebar";
 import drawerWidth from "../components/modules/Sidebar";
+import IPageProps from '../interfaces/page.interface';
 
-export default function Home() {
+
+const Students: React.FunctionComponent<IPageProps> = props => {
   return (
     <Box sx={{ display: 'flex' }}>
 
@@ -30,6 +32,7 @@ export default function Home() {
   );
 }
 
+export default Students;
 
 /*
 Stuff left to do:

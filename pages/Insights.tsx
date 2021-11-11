@@ -2,8 +2,9 @@ import Homepage from "../components/modules/Homepage";
 import SideBar from "../components/modules/Sidebar";
 import Box from '@mui/material/Box';
 import drawerWidth from "../components/modules/Sidebar";
+import IPageProps from '../interfaces/page.interface';
 
-export default function Home() {
+const Insights: React.FunctionComponent<IPageProps> = props => {
   return (
 
     <Box sx={{ display: 'flex' }}>
@@ -18,3 +19,5 @@ export default function Home() {
     </Box>
   );
 }
+
+export default Insights;

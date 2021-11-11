@@ -13,4 +13,9 @@ if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfigDatabase);
 }
 
+export const Providers = {
+  google: new firebase.auth.GoogleAuthProvider(),
+};
+
 export const auth = firebase.auth();
+export default firebase;

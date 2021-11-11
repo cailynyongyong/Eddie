@@ -14,9 +14,12 @@ import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+
 import Button from "./Button";
 import styles from "../../styles/Sidebar.module.css";
 import { useState, useEffect } from 'react';
+
+
 
 
 const drawerWidth = 240;
@@ -33,11 +36,14 @@ export default function ResponsiveDrawer(props: Props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
+
   const urls = ["/", "chatbot", "Insights", "students&tas"]
+
 
   const drawer = (
     <div>
@@ -77,9 +83,17 @@ export default function ResponsiveDrawer(props: Props) {
           >
             <MenuIcon />
           </IconButton>
+
+          
+          <Typography variant="h6" noWrap component="div">
+            Eddie
+
           <Typography className={styles.right_align + " " + styles.black} variant="h6" noWrap>
             Profile
+
           </Typography>
+          <Button color="inherit">Login</Button>
+          <AuthButton />
         </Toolbar>
       </AppBar>
       <Box

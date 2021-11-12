@@ -1,4 +1,3 @@
-import Homepage from "../components/modules/Homepage";
 import BasicTable from "../components/modules/StudentTable";
 import styles from "../styles/Students.module.css";
 import Box from '@mui/material/Box';
@@ -17,6 +16,8 @@ const Students: React.FunctionComponent<IPageProps> = props => {
           sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
         >
           <div id={styles.headers}>
+            <br></br>
+            <br></br>
         <a href="#" className={styles.active + ' ' + styles.btn}>Students</a>
         <a href="#" className={styles.btn}>Teaching Assistants</a>
       </div>

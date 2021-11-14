@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom';
 import firebase from 'firebase';
-
 import IPageProps from '../interfaces/page.interface';
 import { SignInWithSocialMedia } from '../components/modules/auth';
 import { Providers } from '../firebase/index';

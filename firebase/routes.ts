@@ -3,6 +3,7 @@ import SignUpPage from "../auth/SignUpPage";
 import HomePage from "../pages/HomePage";
 import Students from "../pages/Students";
 import Insights from "../pages/Insights";
+import TA from "../pages/TA";
 
 const routes: IRoute[] = [
     {
@@ -20,9 +21,16 @@ const routes: IRoute[] = [
         protected: true
     },
     {
-        path: '/students&tas',
+        path: '/Students',
         exact: true,
         component: Students,
+        name: 'Student Page',
+        protected: true
+    },
+    {
+        path: '/TA',
+        exact: true,
+        component: TA,
         name: 'Student Page',
         protected: true
     },

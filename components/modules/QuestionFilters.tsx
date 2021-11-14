@@ -16,8 +16,8 @@ export default function Filters() {
     const questionTypes = ["Administrative", "Conceptual"]
     const questionValues = [10, 20]
 
-    const students = ["Cailyn", "Pedro", "Rachel"]
-    const studentValues = [10, 20, 30]
+    const students = ["Answered","Unanswered"]
+    const studentValues = [10, 20]
 
     return (
         <div>
@@ -25,13 +25,13 @@ export default function Filters() {
                 Question Type
             </Typography>
             <Typography sx={{ m: 3 }} color="text.secondary" display="inline">
-                Student
+                Status
             </Typography>
-            <div>
-                <DropdownButton options={questionTypes} values={questionValues} />
-                <DropdownButton options={students} values={studentValues} />
-
+           <div>
+            <DropdownButton options={questionTypes} values={questionValues} />
+            <DropdownButton options={students} values={studentValues} />
             </div>
+         
         </div>
     );
 }

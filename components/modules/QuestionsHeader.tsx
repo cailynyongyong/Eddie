@@ -1,5 +1,4 @@
 import * as React from "react";
-import Header from "./Header";
 import Typography from '@mui/material/Typography';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -23,14 +22,15 @@ interface Props {
 export default function QuestionsHeader(props: Props) {
 
     return (
-        <Container maxWidth="lg">
-
-            <Typography variant="h4" component="h4" sx={{ m: 3 }}>
+        <Container fixed>
+            <br/>
+            
+            <Typography variant="h4" component="h4" sx={{ m: 0 }}>
                 Questions
             </Typography>
             <div>
-                <Typography className={styles.inline} variant="subtitle1" component="p" sx={{ m: 3 }}>
-                    All questions submitted by students in {props.course} appear here.
+                <Typography className={styles.inline} variant="subtitle1" component="p" sx={{ m: 0 }}>
+                    All questions submitted by students in {props.course} appear here
                 </Typography>
                 <Typography className={[styles.inline, styles.content_right, styles.link].join(" ")} variant="subtitle2" component="p">
                     {props.link}

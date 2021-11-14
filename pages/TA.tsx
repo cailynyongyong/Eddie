@@ -1,5 +1,5 @@
 import * as React from 'react';
-import StudentTable from "../components/modules/StudentTable";
+import TATable from "../components/modules/TATable";
 import styles from "../styles/Students.module.css";
 import Box from '@mui/material/Box';
 import SideBar from "../components/modules/Sidebar";
@@ -9,7 +9,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 import { Link } from 'react-router-dom';
 
-const Students: React.FunctionComponent<IPageProps> = props => {
+const TA: React.FunctionComponent<IPageProps> = props => {
   return (
     <   React.Fragment>
     <CssBaseline />
@@ -35,7 +35,7 @@ const Students: React.FunctionComponent<IPageProps> = props => {
       </div>
       
       <div id="table">
-        <StudentTable />
+        <TATable />
       </div>
         </Box>
     </Box>
@@ -44,14 +44,4 @@ const Students: React.FunctionComponent<IPageProps> = props => {
   );
 }
 
-export default Students;
-
-/*
-Stuff left to do:
-1. Fix navbar coloring only questions
-2. Make table dynamic
-3. Make a button module with its own styles
-4. Font
-5. Refactor repetitive CSS
-6. Unify CSS with rest of stuff
-*/
+export default TA;

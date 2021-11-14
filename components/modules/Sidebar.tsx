@@ -35,7 +35,7 @@ export default function ResponsiveDrawer(props: Props) {
   };
 
 
-  const urls = ["/", "chatbot", "Insights", "students&tas"]
+  const urls = ["/", "chatbot", "Insights", "Students"]
 
 
   const drawer = (

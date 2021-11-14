@@ -4,7 +4,7 @@
 }
 
 .heading {
-    font-weight: 900;
+    font-weight: bold;
 }
 
 .subscribe {
@@ -27,4 +27,30 @@
 
 .noShadow {
     box-shadow: none;
+}
+
+.active {
+    color: #2361ff;
+    border-bottom: 2px solid #2361ff;
+}
+
+.btn {
+    /* display: inline; */
+    margin-right: 8px;
+    font-size: 1.0em;
+}
+
+.width {
+    /* width: 80%; */
+    margin: auto;
+}
+
+.btn:hover {
+    color: #2361ff;
+    font-weight: 500;
+}
+
+#headers {
+    /* width: 80%; */
+    margin: 20px auto;
 }

@@ -21,7 +21,7 @@ export default function SelectButton(props: Props) {
     });
 
     return (
-        <FormControl variant="filled" size="small" sx={{ m: 3, minWidth: 100 }}>
+        <FormControl variant="filled" size="small" sx={{ m: 2, minWidth: 120 }}>
             <InputLabel id="demo-simple-select-filled-label">All</InputLabel>
             <Select
                 labelId="demo-simple-select-filled-label"

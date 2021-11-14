@@ -1,13 +1,18 @@
+import * as React from 'react';
 import BasicTable from "../components/modules/StudentTable";
 import styles from "../styles/Students.module.css";
 import Box from '@mui/material/Box';
 import SideBar from "../components/modules/Sidebar";
 import drawerWidth from "../components/modules/Sidebar";
 import IPageProps from '../interfaces/page.interface';
-
+import CssBaseline from '@mui/material/CssBaseline';
+import Container from '@mui/material/Container';
 
 const Students: React.FunctionComponent<IPageProps> = props => {
   return (
+    <   React.Fragment>
+    <CssBaseline />
+    <Container fixed>
     <Box sx={{ display: 'flex' }}>
 
         <SideBar />
@@ -18,18 +23,18 @@ const Students: React.FunctionComponent<IPageProps> = props => {
           <div id={styles.headers}>
             <br></br>
             <br></br>
+            <br></br>
         <a href="#" className={styles.active + ' ' + styles.btn}>Students</a>
         <a href="#" className={styles.btn}>Teaching Assistants</a>
       </div>
-      <div className={styles.width}>
-        <p>Manage which of your students receive messages from the chatbot</p>
-      </div>
+      
       <div id="table">
         <BasicTable />
       </div>
         </Box>
     </Box>
-    
+    </Container>
+    </React.Fragment>
   );
 }
 

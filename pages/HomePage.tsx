@@ -32,6 +32,7 @@ const HomePage: React.FunctionComponent<IPageProps> = props => {
           <div>
             <QuestionsHeader course="Basic Algorithms" link="eddie.io/basicalgo/questions" />
           </div>
+          <br/>
           <div>
             <QuestionFilters />
           </div>

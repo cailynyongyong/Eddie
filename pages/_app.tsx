@@ -9,6 +9,7 @@ export interface IApplicationProps { }
 
 const App: React.FunctionComponent<IApplicationProps> = props => {
   const [loading, setLoading] = useState<boolean>(true);
+ 
 
   // Monitor and Update user state.
   useEffect(() => {

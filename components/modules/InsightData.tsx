@@ -6,11 +6,12 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import {Graph} from "../constants/global";
-
+import CssBaseline from '@mui/material/CssBaseline';
+import Container from '@mui/material/Container';
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
-  padding: theme.spacing(9),
+  padding: theme.spacing(5),
   textAlign: 'left',
   color: theme.palette.text.secondary,
 }));
@@ -26,25 +27,28 @@ const bull = (
 
 export default function BasicGrid() {
   return (
-
-    <Box sx={{ flexGrow: 3}}>
+<   React.Fragment>
+      <CssBaseline />
+      <Container fixed>
+        <Box sx={{ flexGrow: 3}}>
         <br></br>
         <br></br>
         <br></br>
         <br></br>
+        <Grid item xs={14} >
         <Typography style={{color:"#212121"}} gutterBottom variant="h4" component="div">
                 Insights
               </Typography>
+          </Grid>
       <Grid container spacing={4}>
         <Grid item xs={14} >
-     
           <Item>
           <Grid item xs container direction="column" spacing={2}>
             <Grid item xs>
-              <Typography style={{color:"#2196f3"}} gutterBottom variant="h5" component="div">
+              <Typography style={{color:"#2361FF"}} gutterBottom variant="h5" component="div">
                 Top Topics Asked
               </Typography>
-              <Typography variant="body2" gutterBottom>
+              <Typography variant="h6" gutterBottom>
                 Concepts that were most difficult for students to understand
               </Typography>
               <Box
@@ -52,13 +56,13 @@ export default function BasicGrid() {
                 display: 'flex',
                 flexWrap: 'wrap',
                 '& > :not(style)': {
-                    m: 1,
+                    m: 0,
                     width: 500,
                     height: 32,
                     },
                 }}
                 >
-              <Button style={{justifyContent: "flex-start", color:"#212121"}}>1. Longest Common Sequence Problem {bull} 25 students asked</Button>
+              <Button style={{justifyContent: "left", color:"#212121"}}>1. Longest Common Sequence Problem {bull} 25 students asked</Button>
               <Button style={{justifyContent: "flex-start", color:"#212121"}}>2. Recursion{bull} 15 students asked</Button>
               <Button style={{justifyContent: "flex-start", color:"#212121"}}>3. DFS Tree Traversal{bull} 5 students asked</Button>
               </Box>
@@ -71,7 +75,7 @@ export default function BasicGrid() {
         <Item>
           <Grid item xs container direction="column" spacing={2}>
             <Grid item xs>
-              <Typography style={{color:"#2196f3"}} gutterBottom variant="h5" component="div">
+              <Typography style={{color:"#2361FF"}} gutterBottom variant="h5" component="div">
                 Average Time to Respond
               </Typography>
 
@@ -86,7 +90,7 @@ export default function BasicGrid() {
                     },
                 }}
                 >
-                <Paper elevation={0}> 
+                <Paper elevation={0} > 
                     <Typography gutterBottom variant="h5" component="div" >2.2</Typography> 
                     <Typography gutterBottom variant="subtitle" component="div">
                   hours by professor
@@ -108,7 +112,7 @@ export default function BasicGrid() {
         <Item>
           <Grid item xs container direction="column" spacing={2}>
             <Grid item xs>
-              <Typography style={{color:"#2196f3"}} gutterBottom variant="h5" component="div">
+              <Typography style={{color:"#2361FF"}} gutterBottom variant="h5" component="div">
                 Average Time to Respond Growth
               </Typography>
               <Box sx={{
@@ -128,5 +132,8 @@ export default function BasicGrid() {
         </Grid>
       </Grid>
     </Box>
+      </Container>
+    </React.Fragment>
+    
   );
 }

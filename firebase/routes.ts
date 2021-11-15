@@ -18,7 +18,7 @@ const routes: IRoute[] = [
         exact: true,
         component: SignUpPage,
         name: 'Login Page',
-        protected: true
+        protected: false
     },
     {
         path: '/Students',

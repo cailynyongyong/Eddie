@@ -4,10 +4,28 @@
     margin-left: auto;
 }
 
-.top_bar {
+#top_bar {
     background-color: #F3F3F8;
 }
 
 .black {
     color: black;
+}
+
+.btn:visited {
+    color: black;
+}
+
+.btn:hover {
+    color: #2361FF;
+}
+
+.btn {
+    color: black;
+    text-decoration: none;
+}
+
+.active {
+    color: #2361FF;
+    background: rgba(35, 97, 255, 0.2);
 }

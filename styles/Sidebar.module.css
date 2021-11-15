@@ -2,6 +2,12 @@
     text-align: right;
     float: right;
     margin-left: auto;
+    margin-right: 25px;
+}
+
+.padding_top {
+    padding-top: 60px;
+    padding-left: 0;
 }
 
 #top_bar {

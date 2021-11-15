@@ -15,6 +15,7 @@ import ListItem from '@mui/material/ListItem';
 import Icon from '@mui/material/Icon';
 import ListItemText from '@mui/material/ListItemText';
 import AdbIcon from '@mui/icons-material/Adb';
+import IconButton from '@mui/material/IconButton';
 
 const drawerWidth = 240;
 
@@ -40,7 +41,7 @@ export default function ClippedDrawer(props: Props) {
 
   const drawer = (
     <div>
-      <List>
+      <List class={styles.padding_top}>
         {["Questions", "Chatbot", "Insights", "Students & TAs"].map((text, index) => (
           <ListItem key={index} className={index === props.active ? styles.active : ''}>
             <Link to={urls[index]} className={styles.btn}>
@@ -52,6 +53,10 @@ export default function ClippedDrawer(props: Props) {
     </div>
   );
 
+  const container = window !== undefined ? () => window().document.body : undefined;
+
+
+
   return (
     <>
       <CssBaseline />
@@ -60,67 +65,68 @@ export default function ClippedDrawer(props: Props) {
           <Typography className={styles.black} variant="h6" noWrap component="div">
             Eddie
           </Typography>
-          <AdbIcon className={styles.black}/>
+          <AdbIcon className={styles.black} />
+
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            sx={{ mr: 2, display: { sm: 'none' } }}
+          >
+            <MenuIcon />
+          </IconButton>
+
+          <div className={styles.right_align}>
+            <Typography className={styles.right_align + " " + styles.black} variant="h6" noWrap>
+              Profile
+
+            </Typography>
+            <Link to={`/auth/signup`}>
+              <button>SignUp</button>
+            </Link>
+          </div>
         </Toolbar>
       </AppBar>
-      <Drawer
-        variant="permanent"
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
-        }}
+
+      <Box
+        component='nav'
+        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+        aria-label='mailbox folders'
       >
-        <Toolbar />
-        <Box sx={{ overflow: 'auto' }}>
+        <Drawer
+          variant="temporary"
+          container={container}
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          ModalProps={{
+            keepMounted: true,
+          }}
+          sx={{
+            display: { xs: 'block', sm: 'none' },
+            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+          }}
+        >
           {drawer}
-        </Box>
-      </Drawer>
+        </Drawer>
+        <Drawer
+          variant="permanent"
+          sx={{
+            display: { xs: 'none', sm: 'block' },
+            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+          }}
+          open
+        >
+          {drawer}
+        </Drawer>
+      </Box>
 
     </>
   );
 }
 
 
-//   const container = window !== undefined ? () => window().document.body : undefined;
 
-//   return (
-//     <>
-//       <CssBaseline />
-//       <AppBar
-//         position="fixed"
-//         sx={{
-//           width: { sm: `calc(100% - ${drawerWidth}px)` },
-//           ml: { sm: `${drawerWidth}px` },
-//         }}
-//       >
-//         <Toolbar className={styles.top_bar}>
-//           <IconButton
-//             color="inherit"
-//             aria-label="open drawer"
-//             edge="start"
-//             onClick={handleDrawerToggle}
-//             sx={{ mr: 2, display: { sm: 'none' } }}
-//           >
-//             <MenuIcon />
-//           </IconButton>
-
-
-//           <Typography variant="h6" noWrap component="div">
-//             Eddie
-//             </Typography>
-//           <Typography className={styles.right_align + " " + styles.black} variant="h6" noWrap>
-//             Profile
-
-//           </Typography>
-//           <div>
-//             <Link to={`/auth/signup`}>
-//                 <button>SignUp</button>
-//             </Link>
-//             </div>
-
-//         </Toolbar>
-//       </AppBar>
 //       <Box
 //         component="nav"
 //         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}

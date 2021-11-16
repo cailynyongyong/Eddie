@@ -5,13 +5,15 @@
     margin-right: 25px;
 }
 
-.padding_top {
-    padding-top: 60px;
+#padding_top {
+    padding-top: 80px;
+    /* margin-top: 60px; */
     padding-left: 0;
 }
 
 #top_bar {
     background-color: #F3F3F8;
+    max-height: 70px;
 }
 
 .black {

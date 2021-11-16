@@ -3,21 +3,17 @@ import Typography from "@mui/material/Typography";
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import DropdownButton from "./DropdownButton";
 
+interface Props {
+    updateType: any,
+    updateStatus: any
+}
 
-export default function Filters() {
-    // code to go
-    const [age, setAge] = React.useState('');
-    const handleChange = (event: SelectChangeEvent) => {
-        setAge(event.target.value);
-    };
-    //
+
+export default function Filters(props: Props) {
 
 
     const questionTypes = ["Administrative", "Conceptual"]
-    const questionValues = [10, 20]
-
-    const students = ["Answered","Unanswered"]
-    const studentValues = [10, 20]
+    const answered = ["Answered","Unanswered"]
 
     return (
         <div>
@@ -28,8 +24,8 @@ export default function Filters() {
                 Status
             </Typography>
            <div>
-            <DropdownButton options={questionTypes} values={questionValues} />
-            <DropdownButton options={students} values={studentValues} />
+            <DropdownButton options={questionTypes} handleChange={props.updateType}/>
+            <DropdownButton options={answered} handleChange={props.updateStatus}/>
             </div>
          
         </div>

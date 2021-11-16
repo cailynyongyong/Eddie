@@ -16,6 +16,7 @@ import Icon from '@mui/material/Icon';
 import ListItemText from '@mui/material/ListItemText';
 import AdbIcon from '@mui/icons-material/Adb';
 import IconButton from '@mui/material/IconButton';
+import Profile from './Profile';
 
 const drawerWidth = 240;
 
@@ -41,7 +42,7 @@ export default function ClippedDrawer(props: Props) {
 
   const drawer = (
     <div>
-      <List class={styles.padding_top}>
+      <List id={styles.padding_top}>
         {["Questions", "Chatbot", "Insights", "Students & TAs"].map((text, index) => (
           <ListItem key={index} className={index === props.active ? styles.active : ''}>
             <Link to={urls[index]} className={styles.btn}>
@@ -78,13 +79,7 @@ export default function ClippedDrawer(props: Props) {
           </IconButton>
 
           <div className={styles.right_align}>
-            <Typography className={styles.right_align + " " + styles.black} variant="h6" noWrap>
-              Profile
-
-            </Typography>
-            <Link to={`/auth/signup`}>
-              <button>SignUp</button>
-            </Link>
+            <Profile />
           </div>
         </Toolbar>
       </AppBar>

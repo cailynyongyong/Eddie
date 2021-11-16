@@ -16,7 +16,7 @@ const Students: React.FunctionComponent<IPageProps> = props => {
     <Container fixed>
     <Box sx={{ display: 'flex' }}>
 
-        <SideBar />
+        <SideBar active={3}/>
         <Box
           component="main"
           sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}

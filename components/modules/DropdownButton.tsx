@@ -6,18 +6,13 @@ import * as React from "react";
 
 interface Props {
     options: string[],
-    values: number[]
+    handleChange: any
 }
 
 export default function SelectButton(props: Props) {
-    const [age, setAge] = React.useState('');
-
-    const handleChange = (event: SelectChangeEvent) => {
-        setAge(event.target.value);
-    };
 
     const menuItems = props.options.map((elem, index) => {
-        return (<MenuItem value={props.values[index]}>{elem}</MenuItem>)
+        return (<MenuItem value={index + 2}>{elem}</MenuItem>)
     });
 
     return (
@@ -26,10 +21,9 @@ export default function SelectButton(props: Props) {
             <Select
                 labelId="demo-simple-select-filled-label"
                 id="demo-simple-select-filled"
-                value={age}
-                onChange={handleChange}
+                onChange={(e) => props.handleChange(e.target.value)}
             >
-                <MenuItem value="">
+                <MenuItem value={1}>
                     <em>All</em>
                 </MenuItem>
 

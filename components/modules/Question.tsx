@@ -34,23 +34,25 @@ export default function Question(props: Props) {
 
   
   return (
-    <div className={[props.answers ? "" : styles.unanswered, styles.question_container].join(" ")}>
+    <div 
+      className={`${props.answers.length ? "" : styles.unanswered} ${styles.question_container} ${styles.question}`} 
+    >
       <CardContent>
-        <Typography variant="h6" component="div" display="inline">
+        <Typography variant="h5" component="h5" display="inline">
           {props.questionType.toUpperCase()} QUESTION
         </Typography>
-        <Typography variant="h6" component="div" display="inline">
-          {bull}{props.questionCount} student(s) asked
+        <Typography variant="h6" component="h6" display="inline">
+          {bull} {props.questionCount} student(s) asked
         </Typography>
       </CardContent>
       <CardActions>
-        <Button className={[styles.margin, styles.question].join(" ")} size="large">{props.question}</Button>
+        <Button id={styles.question_content} size="large">{props.question}</Button>
         <div className={styles.margin_left}>
-          <Button className={[styles.btn].join(" ")} variant="contained" size="large">Answer</Button>
-          <Button className={[styles.btn].join(" ")} variant="contained" size="large">Assign to TA</Button>
+          <Button className={`${styles.btn} ${styles.btn2}`} variant="contained" size="large">Answer</Button>
+          <Button className={`${styles.btn} ${styles.btn2}`} variant="contained" size="large">Assign to TA</Button>
         </div>
       </CardActions>
-      <CardContent>
+      <CardContent id={styles.description}>
         <Typography variant="body2">
           {props.description}
         </Typography>

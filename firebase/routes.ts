@@ -4,6 +4,7 @@ import HomePage from "../pages/HomePage";
 import Students from "../pages/Students";
 import Insights from "../pages/Insights";
 import TA from "../pages/TA";
+import Chatbot from '../pages/Chatbot';
 
 const routes: IRoute[] = [
     {
@@ -19,6 +20,13 @@ const routes: IRoute[] = [
         component: SignUpPage,
         name: 'Login Page',
         protected: false
+    },
+    {
+        path: '/chatbot',
+        exact: true,
+        component: Chatbot,
+        name: 'Chatbot',
+        protected: true,
     },
     {
         path: '/Students',

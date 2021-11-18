@@ -19,7 +19,7 @@ const routes: IRoute[] = [
         exact: true,
         component: SignUpPage,
         name: 'Login Page',
-        protected: false
+        protected: true
     },
     {
         path: '/chatbot',

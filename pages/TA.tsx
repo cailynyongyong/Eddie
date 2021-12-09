@@ -1,5 +1,4 @@
 import * as React from 'react';
-import TATable from "../components/modules/TATable";
 import styles from "../styles/Students.module.css";
 import Box from '@mui/material/Box';
 import SideBar from "../components/modules/Sidebar";

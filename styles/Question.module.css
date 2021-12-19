@@ -4,6 +4,10 @@
     margin: auto 2%;
 }
 
+.invisible {
+    display: none;
+}
+
 .unanswered.question_container {
     border: 2px solid #FF00004A;
 }

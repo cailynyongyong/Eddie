@@ -4,16 +4,15 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import DropdownButton from "./DropdownButton";
 
 interface Props {
-    updateType: any,
-    updateStatus: any
+    update: any
 }
 
 
 export default function Filters(props: Props) {
 
 
-    const questionTypes = ["Administrative", "Conceptual"]
-    const answered = ["Answered","Unanswered"]
+    const questionTypes = ["administrative", "conceptual"]
+    const answered = ["answered", "unanswered"]
 
     return (
         <div>
@@ -23,11 +22,19 @@ export default function Filters(props: Props) {
             <Typography sx={{ m: 3 }} color="text.secondary" display="inline">
                 Status
             </Typography>
-           <div>
-            <DropdownButton options={questionTypes} handleChange={props.updateType}/>
-            <DropdownButton options={answered} handleChange={props.updateStatus}/>
+            <div>
+                <DropdownButton
+                    options={questionTypes}
+                    category='questionType'
+                    handleChange={props.update}
+                />
+                <DropdownButton
+                    options={answered}
+                    category='answered'
+                    handleChange={props.update}
+                />
             </div>
-         
+
         </div>
     );
 }

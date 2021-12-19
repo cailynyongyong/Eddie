@@ -6,13 +6,14 @@ import * as React from "react";
 
 interface Props {
     options: string[],
+    category: string,
     handleChange: any
 }
 
 export default function SelectButton(props: Props) {
 
     const menuItems = props.options.map((elem, index) => {
-        return (<MenuItem value={index + 2}>{elem}</MenuItem>)
+        return (<MenuItem value={elem}>{elem}</MenuItem>)
     });
 
     return (
@@ -21,9 +22,9 @@ export default function SelectButton(props: Props) {
             <Select
                 labelId="demo-simple-select-filled-label"
                 id="demo-simple-select-filled"
-                onChange={(e) => props.handleChange(e.target.value)}
+                onChange={(e) => props.handleChange(e.target.value, props.category)}
             >
-                <MenuItem value={1}>
+                <MenuItem value=''>
                     <em>All</em>
                 </MenuItem>
 

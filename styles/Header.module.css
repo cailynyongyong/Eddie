@@ -24,6 +24,24 @@
     margin-top: 8px;
 }
 
+.header_link, .header_link:visited {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-right: 60px;
+    padding-top: 20px;
+    text-decoration: none;
+    color: black;
+}
+
+.header_link:hover {
+    color: rgb(35, 97, 255);
+}
+
+.active {
+    text-decoration: underline;
+}
+
 #header {
-    padding-top: 65px;
+    padding-top: 70px;
+    margin-top: 10px;
 }

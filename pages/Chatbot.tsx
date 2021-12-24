@@ -1,29 +1,35 @@
 import * as React from "react";
 import Sidebar from "../components/modules/Sidebar";
-import Box from "@mui/material/Box";
+import { Box, Typography } from "@mui/material";
 import Header from '../components/modules/Header';
-import Typography from '@mui/material/Typography';
 import ChatbotComponent from '../components/modules/ChatbotComponent';
 
+// Page to customize chat bot 
 export default function Chatbot() {
     return (
         <Box sx={{ display: 'flex' }}>
+
+            {/* Links to other sites and profile info */}
             <Sidebar active={1} />
-            <Box 
-                margin='auto' 
-                maxWidth='60%' 
-                component='main' 
+
+            <Box
+                margin='auto'
+                maxWidth='60%'
+                component='main'
                 sx={{ flexGrow: 1, p: 3 }}
             >
+
+                {/* Header with page title, basic info, and link to class chatbot */}
                 <Header
                     title='Chatbot'
                     subtitle='Use automated messages to engage with students'
                     link="eddie.io/basicalgo/questions"
                 />
-
-                <div>
-                    <Typography 
-                        component='h6' 
+                
+                {/* Create and customize chatbot */}
+                <div style={{marginTop: '30px'}}>
+                    <Typography
+                        component='h6'
                         variant='h6'
                         style={{
                             color: '#2361FF',
@@ -33,9 +39,10 @@ export default function Chatbot() {
                     >
                         Create Chatbot
                     </Typography>
+                    
+                    {/* Customization and creation */}
+                    <ChatbotComponent text='Question Collector' button='Create' />
                 </div>
-
-                <ChatbotComponent text='Question Collector' button='Create'/>
 
             </Box>
         </Box>

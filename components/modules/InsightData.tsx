@@ -1,13 +1,8 @@
 import * as React from 'react';
+import { Box, Paper, Grid, Typography, Button, CssBaseline, Container } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import { Graph } from "../constants/global";
-import CssBaseline from '@mui/material/CssBaseline';
-import Container from '@mui/material/Container';
+
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -16,6 +11,7 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
+// bullet point
 const bull = (
   <Box
     component="span"
@@ -25,22 +21,29 @@ const bull = (
   </Box>
 );
 
+
 export default function BasicGrid() {
   return (
-    <   React.Fragment>
+    <React.Fragment>
       <CssBaseline />
       <Container fixed>
         <Grid container spacing={4}>
+          
+          {/* Top topics */}
           <Grid item xs={14} >
             <Item>
-              <Grid item xs container direction="column" spacing={2}>
+              <Grid item xs container direction="column" spacing={2}> 
                 <Grid item xs>
+                  
+                  {/* Header area */}
                   <Typography style={{ color: "#2361FF" }} gutterBottom variant="h5" component="div">
                     Top Topics Asked
                   </Typography>
                   <Typography variant="h6" gutterBottom>
                     Concepts that were most difficult for students to understand
                   </Typography>
+                  
+                  {/* Insight body */}
                   <Box
                     sx={{
                       display: 'flex',
@@ -59,16 +62,20 @@ export default function BasicGrid() {
                 </Grid>
               </Grid>
             </Item>
-
           </Grid>
+
+          {/* Response time metrics */}
           <Grid item xs={6}>
             <Item>
               <Grid item xs container direction="column" spacing={2}>
                 <Grid item xs>
+                  
+                  {/* Header */}
                   <Typography style={{ color: "#2361FF" }} gutterBottom variant="h5" component="div">
                     Average Time to Respond
                   </Typography>
 
+                  {/* Insight body */}
                   <Box
                     sx={{
                       display: 'flex',
@@ -80,31 +87,40 @@ export default function BasicGrid() {
                       },
                     }}
                   >
+                    {/* Professor response time */}
                     <Paper elevation={0} >
                       <Typography gutterBottom variant="h5" component="div" >2.2</Typography>
                       <Typography gutterBottom variant="subtitle1" component="div">
                         hours by professor
                       </Typography>
                     </Paper>
+                    
+                    {/* TA response times */}
                     <Paper elevation={0}>
                       <Typography gutterBottom variant="h5" component="div">1.7</Typography>
                       <Typography gutterBottom variant="subtitle1" component="div">
                         hours by TA
                       </Typography>
                     </Paper>
+
                   </Box>
                 </Grid>
               </Grid>
             </Item>
           </Grid>
 
+          {/* Time to respond growth */}
           <Grid item xs={6}>
             <Item>
               <Grid item xs container direction="column" spacing={2}>
                 <Grid item xs>
+                  
+                  {/* Header */}
                   <Typography style={{ color: "#2361FF" }} gutterBottom variant="h5" component="div">
                     Average Time to Respond Growth
                   </Typography>
+
+                  {/* body with graph */}
                   <Box sx={{
                     display: 'flex',
                     flexWrap: 'wrap',
@@ -114,12 +130,15 @@ export default function BasicGrid() {
                       height: 200,
                     },
                   }}>
+                    {/* Graph image for now */}
                     <img src={Graph} alt="" />
                   </Box>
+
                 </Grid>
               </Grid>
             </Item>
           </Grid>
+          
         </Grid>
       </Container>
     </React.Fragment>

@@ -12,8 +12,10 @@ const App: React.FunctionComponent<IApplicationProps> = props => {
  
 
   // Monitor and Update user state.
+  // wait for page to load before checking if a user is logged in
   useEffect(() => {
     auth.onAuthStateChanged(user => {
+      // Is this still needed??
       if (user) {
         console.log('User detected.')
       } else {
@@ -22,6 +24,8 @@ const App: React.FunctionComponent<IApplicationProps> = props => {
       setLoading(false);
     })
   }, []);
+
+  
   if (loading)
     return <div>Loding...</div>
 

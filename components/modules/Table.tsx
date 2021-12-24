@@ -1,48 +1,51 @@
 import * as React from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import CssBaseline from '@mui/material/CssBaseline';
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
-import { styled } from '@mui/material/styles';
+import {
+    Table, TableBody, TableCell, TableContainer, TableHead,
+    TableRow, Paper, CssBaseline, Box, Card, CardActions,
+    CardContent, Typography, Grid
+} from '@mui/material';
 import styles from '../../styles/Table.module.css'
 
+/**
+ * @headings: array of headers for table
+ * @content: 2-D array, rows and cols for table
+ * content[i].length must match headings.length
+ */
 interface Props {
     headings: string[],
     content: (string | number | JSX.Element)[][]
 }
 
+
 export default function CreateTable(props: Props) {
 
+    // Create TableCell component for the headings, styled accordingly
     const headings = props.headings.map((elem, index) => {
         return <TableCell className={styles.heading} align='center'>{elem}</TableCell>
     })
 
+    // Map each row in content to a column
     const content = props.content.map((row, index) => {
+        // for each row return a TableRow component
         return <TableRow> {row.map((elem, i) => {
+            // each element in a row returned as a TableCell component
             return <TableCell align="center">{elem}</TableCell>
         })} </TableRow>
     })
+
 
     return (
         <TableContainer component={Paper} className={styles.noShadow}>
             <Table
                 className={styles.table}
             >
+                
                 <TableHead>
                     <TableRow>
                         {headings}
                     </TableRow>
                 </TableHead>
+
                 <TableBody>
                     {content}
                 </TableBody>

@@ -1,22 +1,37 @@
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
 import * as React from "react";
 import { Link } from 'react-router-dom';
+import { FormControl, InputLabel, MenuItem } from '@mui/material';
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 import styles from '../../styles/Profile.module.css';
 
+// Profile dropdown for navbar
 export default function Profile() {
-    const items = ['Settings', 'Change Class', 'Sign Out']
-    const links = ['', '', '/auth/signup']
-    const icons = ['', '', '']  // To fill later if need be
-
-    const menuItems = items.map((elem, index) => {
+    // Fields for dropdown
+    const fields = [
+        {
+            field: 'Settings',
+            link: '#',
+            icon: ''
+        },
+        {
+            field: 'Change Class',
+            link: '#',
+            icon: ''
+        },
+        {
+            field: 'Sign Out',
+            link: '/aut/signup',
+            icon: ''
+        }
+    ]
+   
+    // Map fields to react component MenuItem
+    const menuItems = fields.map((elem, index) => {
         return (
             <MenuItem value={index}>
-                <Link className={styles.link} to={links[index]}>
-                    {icons[index]}
-                    {elem}
+                <Link className={styles.link} to={elem.link}>
+                    {elem.icon}
+                    {elem.field}
                 </Link>
             </MenuItem>
         )

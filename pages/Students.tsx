@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
+import firebase from '../firebase/index';
 import { Box, CssBaseline, Container } from '@mui/material';
 import SideBar, { drawerWidth } from "../components/modules/Sidebar";
 import IPageProps from '../interfaces/page.interface';
@@ -6,16 +7,42 @@ import StudentsTAHeader from '../components/modules/StudentsTAHeader';
 import SubscribeInstructions from '../components/modules/SubscribeInstructions';
 import styles from '../styles/Table.module.css';
 import CreateTable from '../components/modules/Table';
+import { id } from './HomePage';
 
 // Function to create students table page
 const Students: React.FunctionComponent<IPageProps> = props => {
+  // data to put into table
+  const [content, updateContent] = useState([]);
+
+  // Once content loads, request database for stored students
+  useEffect(() => {
+    // load students from db
+    const coursesRef = firebase.database().ref('Courses');
+
+    coursesRef.on('value', (snapshot) => {
+      const coursesVal = snapshot.val();
+      const students_db = coursesVal[id]['students']
+
+      // convert stored students objects to objects usable by front end
+      const studentsList = students_db.map((elem, index) => {
+       
+        // add subscribed/unsubscribed options
+        elem.subscribed ? elem.messages = <a className={styles.unsubscribe} href="#">Unsubscribe</a> :
+                          elem.messages = <a className={styles.subscribe} href="#">Subscribe</a>;
+
+        return [elem.name, elem.email, elem.phone, elem.messages];
+      });
+
+      updateContent(studentsList)
+
+    })
+  }, []);
+
+
+
 
   // Pull student data from db
   const headings = ['Name', 'Email', 'Phone Number', 'Messages']
-  const content = [
-    ['Rachel Kindangen', 'rmk461@nyu.edu', 9782697981, <a className={styles.subscribe} href="#">Subscribe</a>],
-    ['Pedro Velasquez', 'pv850@nyu.edu', 3472218153, <a className={styles.unsubscribe} href="#">Unubscribe</a>]
-  ]
 
   return (
     <React.Fragment>

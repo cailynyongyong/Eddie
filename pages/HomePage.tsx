@@ -7,58 +7,91 @@ import Header from "../components/modules/Header";
 import SideBar from "../components/modules/Sidebar";
 import QuestionFilters from "../components/modules/QuestionFilters";
 import Question from "../components/modules/Question";
+import { fabClasses } from '@mui/material';
+
+// id of course, temp measure
+// eventually the page will determine what courses to load depending on the professor
+// currently logged in
+export const id = '-MriCZgPemTZqde40xSa';
+
 
 // Home page with course questions
 const HomePage: React.FunctionComponent<IPageProps> = props => {
 
   // hold the questions data for each course
   const [questions, updateQuestions] = useState([]);
+  // hold ta data
+  const [tas, updateTAs] = useState([])
 
   // Once content loads, request database for stored questions
   useEffect(() => {
     // load questions from db
-    const questionRef = firebase.database().ref('Questions');
+    const coursesRef = firebase.database().ref('Courses');
 
-    questionRef.on('value', (snapshot) => {
-      const questionsVal = snapshot.val();
-      const questionList: QuestionObj[] = [];
+    coursesRef.on('value', (snapshot) => {
+      const coursesVal = snapshot.val();
+      updateTAs(coursesVal[id]['tas']);
+      console.log(coursesVal[id]['tas']);
+      const questions_db = coursesVal[id]['questions']
+      // console.log(questions_db)
 
-      // for each question
-      for (let id in questionsVal) {
+      // convert stored question objects to objects usable by front end
+      const questionList = questions_db.map((elem, index) => {
         // firebase doesn't store empty lists, needed to avoid errors later
-        if (!questionsVal[id].answers) {
-          let tmp: string[];
-          tmp = []
-          questionsVal[id].answers = tmp;
+        if (!elem.answers) {
+          elem.answers = [];
         }
+
         // invisible field determines if display: none; (for filtering questions)
-        questionList.push({ ...questionsVal[id], invisible: false });
-      }
+        return { ...elem, invisible: false }
+      });
+
       updateQuestions(questionList)
+
     })
   }, []);
 
-  // BUG: BOTH FILTERS DON'T WORK AT THE SAME TIME NEED TO UPDATE
+  // manage filters to set questions visible/invisible
+  const [filters, updateFilters] = useState({
+    questionType: undefined,
+    answered: undefined
+  });
+
+
   // Manages display of questions based on the filtering options
-  const filterQuestions = (value: string, category: string) => {
-    // '' encodes displaying all options
-    if (value === '') {
-      updateQuestions(questions.map((e, i) => {
-        return { ...e, invisible: false }
+  const filterQuestions = (category: string, filter: string | boolean | undefined) => {
+    // update filters, undefined encodes all options
+    updateFilters(() => {
+      filters[category] = filter; 
+      return filters;
+    })
+
+    // reset visibility of all questions before applying new filters
+    updateQuestions(questions.map((elem) => {
+      elem.invisible = false;
+      return elem;
+    }))
+
+    // apply questionType filter
+    if (filters.questionType !== undefined) { // undefined encondes no filters need to be applied
+      updateQuestions(questions.map((elem) => {
+        elem.invisible = elem.invisible || elem.questionType !== filters.questionType;
+        return elem;
       }))
     }
-    else {
-      updateQuestions(questions.map((e, i) => {
-        // set invisible to true for all values that don't match
-        let hidden = (e[category] !== value);
-        return { ...e, invisible: hidden }
+
+    // apply answered filter
+    if (filters.answered !== undefined) {
+      updateQuestions(questions.map((elem) => {
+        elem.invisible = elem.invisible || elem.answered !== filters.answered;
+        return elem;
       }))
     }
   }
 
   // map all posted questions to the Question React module
   const questionsElem = questions.map((elem, index) => {
-    return <Question question={elem} />
+    return <Question question={elem} tas={tas} />
   });
 
 

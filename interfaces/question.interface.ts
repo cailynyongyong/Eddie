@@ -4,7 +4,7 @@ export default interface QuestionObj {
     question: string,
     description: string,
     answers: string[] | undefined,
-    answered: string,
+    answered: boolean,
     ta: string,
     invisible: boolean
 }

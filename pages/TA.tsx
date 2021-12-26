@@ -1,18 +1,40 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
+import firebase from '../firebase/index';
 import { Box, Button, Container, CssBaseline } from '@mui/material';
 import IPageProps from '../interfaces/page.interface';
 import SideBar, { drawerWidth } from "../components/modules/Sidebar";
 import StudentsTAHeader from '../components/modules/StudentsTAHeader';
 import CreateTable from '../components/modules/Table';
+import { id } from './HomePage';
 
 // Function to create TA table
 const TA: React.FunctionComponent<IPageProps> = props => {
-  // Pull data from database
+  // TA data
+  const [content, updateContent] = useState([]);
+
+  // pull data from database
+  // Once content loads, request database for stored TAs
+  useEffect(() => {
+    // load TAs from db
+    const coursesRef = firebase.database().ref('Courses');
+    coursesRef.on('value', (snapshot) => {
+      const coursesVal = snapshot.val();
+      const ta_db = coursesVal[id]['tas']
+
+      // convert stored students objects to objects usable by front end
+      const taList = ta_db.map((elem, index) => {
+        
+        // return as a list
+        return [elem.name, elem.email, elem.phone, elem.assignedQuestions];
+      });
+
+      updateContent(taList)
+
+    })
+  }, []);
+
+  
   const headings = ['Name', 'Email', 'Phone Number', 'Questions']
-  const content = [
-    ['Johnnie Yu', 'johnnie.yu@nyu.edu', 9782697981, 3],
-    ['Hyerim Yong', 'hy1602@nyu.edu', 3472218153, 5]
-  ]
 
   return (
     <React.Fragment>

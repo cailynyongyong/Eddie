@@ -13,8 +13,34 @@ interface Props {
 export default function Filters(props: Props) {
 
     // filter categories
-    const questionTypes = ["administrative", "conceptual"]
-    const answered = ["answered", "unanswered"]
+    const questionTypes = [
+        {
+            value: undefined,
+            content: 'All'
+        },
+        {
+            value: "administrative",
+            content: 'Administrative'
+        }, 
+        {
+            value: "conceptual",
+            content: 'Conceptual'
+        }
+    ]
+    const answered = [
+        {
+            value: undefined,
+            content: 'All'
+        },
+        {
+            value: true,
+            content: 'Answered'
+        },
+        {
+            value: false,
+            content: 'Unanswered'
+        }
+    ]
 
     return (
         <div>
@@ -30,11 +56,13 @@ export default function Filters(props: Props) {
             {/* Drowdowns for both */}
             <div>
                 <DropdownButton
+                    default={'All'}
                     options={questionTypes}
                     category='questionType'
                     handleChange={props.update}
                 />
                 <DropdownButton
+                    default={'All'}
                     options={answered}
                     category='answered'
                     handleChange={props.update}

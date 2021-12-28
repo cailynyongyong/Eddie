@@ -31,7 +31,7 @@ const HomePage: React.FunctionComponent<IPageProps> = props => {
     coursesRef.on('value', (snapshot) => {
       const coursesVal = snapshot.val();
       updateTAs(coursesVal[id]['tas']);
-      console.log(coursesVal[id]['tas']);
+
       const questions_db = coursesVal[id]['questions']
       // console.log(questions_db)
 
@@ -62,7 +62,7 @@ const HomePage: React.FunctionComponent<IPageProps> = props => {
   const filterQuestions = (category: string, filter: string | boolean | undefined) => {
     // update filters, undefined encodes all options
     updateFilters(() => {
-      filters[category] = filter; 
+      filters[category] = filter;
       return filters;
     })
 
@@ -89,9 +89,39 @@ const HomePage: React.FunctionComponent<IPageProps> = props => {
     }
   }
 
+  // Assign a ta to a question
+  const assignTas = (question_id: number, ta: {name: string, email: string}) => {
+    // update local values
+    // add 1 question to TA
+    updateTAs(tas.map((elem) => {
+      elem.email === ta.email ? elem.assignedQuestions += 1 : '';
+      return elem;
+    }));
+
+    // update local questions
+    // assign question to ta
+    updateQuestions(questions.map((elem) => {
+      elem.id === question_id ? elem.ta = {name: ta.name, email: ta.email} : '';
+      return elem
+    }));
+    
+    // get course database from firebase
+    const courseRef = firebase.database().ref('Courses').child(id);
+
+    // update database values
+    courseRef.update({
+      tas: tas,
+      questions: questions.map((elem) => {
+        return {... elem, invisible: []}
+      })
+    });
+    
+    
+  }
+
   // map all posted questions to the Question React module
   const questionsElem = questions.map((elem, index) => {
-    return <Question question={elem} tas={tas} />
+    return <Question question={elem} tas={tas} update={assignTas} />
   });
 
 

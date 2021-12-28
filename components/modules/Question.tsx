@@ -1,9 +1,11 @@
 import React from "react";
+import firebase from '../../firebase/index';
 import { Typography, Box, CardActions, CardContent, Button } from '@mui/material';
 import QuestionObj from '../../interfaces/question.interface';
 import TAObj from '../../interfaces/ta.interface';
 import DropdownButton from './DropdownButton';
 import styles from "../../styles/Question.module.css";
+import { id } from '../../pages/HomePage';
 
 /**
  * @QuestionObj question data being passed
@@ -11,7 +13,8 @@ import styles from "../../styles/Question.module.css";
  */
 interface Props {
   question: QuestionObj
-  tas: TAObj[]
+  tas: TAObj[],
+  update: any
 }
 
 // Question box, displays single box with all necessary question data and functionality
@@ -49,16 +52,20 @@ export default function Question(props: Props) {
   // create tas for dropdown menu
   const taOptions = props.tas.map((elem) => {
     return {
-      value: elem.name,
+      value: {
+        name: elem.name,
+        email: elem.email
+      },
       content: elem.name
     }
   })
 
+  // question with no ta assigned vs question with ta assigned
   const ta = () => {
-    if (question.ta) {
+    if (question.ta.name) {
       return (
         <Typography>
-          Assigned to {question.ta}
+          Assigned to {question.ta.name}
         </Typography>
       );
     }
@@ -66,8 +73,8 @@ export default function Question(props: Props) {
       <DropdownButton 
         default='Assign TA'
         options={taOptions}
-        category=''
-        handleChange={(cat, val) => alert('Change')}
+        category={question.id}
+        handleChange={props.update}
       />
     );
   }

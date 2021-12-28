@@ -19,7 +19,7 @@ interface Option {
 interface Props {
     default: string,
     options: Option[],
-    category: string,
+    category: string | number,
     handleChange: any
 }
 

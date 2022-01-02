@@ -43,7 +43,7 @@ const TA: React.FunctionComponent<IPageProps> = props => {
         <Box sx={{ display: 'flex' }}>
 
           {/* Sidebar and menu */}
-          <SideBar active={3} />
+          <SideBar active={3} authenticated={true} />
 
           <Box
             component="main"

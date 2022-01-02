@@ -10,7 +10,7 @@ export default function Chatbot() {
         <Box sx={{ display: 'flex' }}>
 
             {/* Links to other sites and profile info */}
-            <Sidebar active={1} />
+            <Sidebar active={1} authenticated={true} />
 
             <Box
                 margin='auto'

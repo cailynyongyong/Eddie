@@ -2,11 +2,12 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { AppBar, Box, CssBaseline, Drawer, 
         List, Toolbar, Typography, ListItem, 
-        ListItemText, IconButton } from '@mui/material';
+        ListItemText, IconButton, Button } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/Adb';
 import styles from "../../styles/Sidebar.module.css";
 import Profile from './Profile';
+import SignUp from '../../auth/SignUpPage';
 
 // width to to sidebar
 export const drawerWidth = 240;
@@ -17,7 +18,9 @@ interface Props {
    * You won't need it on your project.
    */
   window?: () => Window,
-  active: number  // which link will be styled as active
+  active: number,  // which link will be styled as active
+  authenticated: boolean,
+  authenticate?: any
 }
 
 
@@ -31,26 +34,52 @@ export default function Sidebar(props: Props) {
   };
 
   // links for the navbar
-  const urls = ["/", "chatbot", "Insights", "Students"]
+  const links = [
+    {
+      text: 'Questions',
+      link: '/'
+    },
+    {
+      text: 'Chatbot',
+      link: 'chatbot'
+    },
+    {
+      text: 'Insights',
+      link: 'Insights'
+    },
+    {
+      text: 'Students',
+      link: 'Students'
+    }
+  ];
+
+  // map each link to a react element
+  const sidebarLinks = links.map((link, index) => (
+    // add style of active if index matches props.active
+    <ListItem key={index} className={index === props.active ? styles.active : ''}>
+      {/* create a link to url */}
+      <Link 
+        to={props.authenticated ? link.link : '#'} 
+        className={`${styles.btn} ${props.authenticated ? '' : styles.disabled}`}
+      >
+        <ListItemText primary={link.text}></ListItemText>
+      </Link>
+    </ListItem>
+  ));
 
   // Create React components with the text and urls for the navbar links
   const drawer = (
     <div>
       <List id={styles.padding_top}>
         
-        {/* map each of the text options to their respective url and create a link element */}
-        {["Questions", "Chatbot", "Insights", "Students & TAs"].map((text, index) => (
-          // Add styles of active if index matches props.active
-          <ListItem key={index} className={index === props.active ? styles.active : ''}>
-            {/* create a link to url[index] matched with it's appropriate text */}
-            <Link to={urls[index]} className={styles.btn}>
-              <ListItemText primary={text}></ListItemText>
-            </Link>
-          </ListItem>
-        ))}
+        { sidebarLinks }
+        
       </List>
     </div>
   );
+
+  // Create React component to either sign in or view profile
+  const profile = props.authenticated ? (<Profile />) : (<SignUp authenticate={props.authenticate} />);
 
   const container = window !== undefined ? () => window().document.body : undefined;
 
@@ -81,7 +110,7 @@ export default function Sidebar(props: Props) {
 
           {/* Profile info dropdown */}
           <div className={styles.right_align}>
-            <Profile />
+            { profile }
           </div>
 
         </Toolbar>

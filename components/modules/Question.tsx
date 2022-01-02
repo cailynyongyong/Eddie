@@ -1,11 +1,10 @@
-import React from "react";
-import firebase from '../../firebase/index';
-import { Typography, Box, CardActions, CardContent, Button } from '@mui/material';
+import React, { useState } from "react";
+import { Typography, Box, CardActions, CardContent, Button, TextField } from '@mui/material';
 import QuestionObj from '../../interfaces/question.interface';
 import TAObj from '../../interfaces/ta.interface';
 import DropdownButton from './DropdownButton';
 import styles from "../../styles/Question.module.css";
-import { id } from '../../pages/HomePage';
+import { auth } from '../../firebase/index';
 
 /**
  * @QuestionObj question data being passed
@@ -14,13 +13,17 @@ import { id } from '../../pages/HomePage';
 interface Props {
   question: QuestionObj
   tas: TAObj[],
-  update: any
+  update: any,
+  addAnswer: any
 }
 
 // Question box, displays single box with all necessary question data and functionality
 export default function Question(props: Props) {
 
-  const question = props.question
+  const question = props.question;
+  const [newAnswer, updateAnswer] = useState('');
+  const [setAnswered, updateSetAnswered] = useState(false);
+  const [answerVisibility, updateVisibility] = useState(false);
 
   // Just a bulletpoint, to be used later
   const bull = (
@@ -36,17 +39,17 @@ export default function Question(props: Props) {
   const answer = () => {
     if (question.answered) {
       // to be updated later
-      return ( 
-        <Typography>  
+      return (
+        <Typography>
           Answered
         </Typography>
       );
     }
     return (
-      <Button className={`${styles.btn} ${styles.btn2}`} variant="contained" size="large">
+      <Button onClick={() => {updateVisibility(!answerVisibility)}} className={`${styles.btn} ${styles.btn2}`} variant="contained" size="large">
         Answer
       </Button>
-    ); 
+    );
   }
 
   // create tas for dropdown menu
@@ -70,13 +73,31 @@ export default function Question(props: Props) {
       );
     }
     return (
-      <DropdownButton 
+      <DropdownButton
         default='Assign TA'
         options={taOptions}
         category={question.id}
         handleChange={props.update}
       />
     );
+  }
+
+  // update the newAsnwer variable
+  const updateNewAnswer = (e) => {
+    updateAnswer(e.target.value)
+  }
+  // update the setAnswered
+  const answeredCheckbox = (e) => {
+    updateSetAnswered(e.target.checked);
+  }
+
+  // Create new answer for the question
+  const addAnswer = () => {
+    // check if question has been answered
+    if (newAnswer.length) {
+      const account = {name: auth.currentUser.displayName, email: auth.currentUser.email};
+      props.addAnswer(question.id, account, newAnswer, setAnswered);
+    }
   }
 
   return (
@@ -101,8 +122,8 @@ export default function Question(props: Props) {
         <Button id={styles.question_content} size="large">{question.question}</Button>
         <div className={styles.margin_left}>
           {/* Teacher functions: assign to TA and answer */}
-          { answer() }
-          { ta() }
+          {answer()}
+          {ta()}
         </div>
       </CardActions>
 
@@ -112,6 +133,18 @@ export default function Question(props: Props) {
           {question.description}
         </Typography>
       </CardContent>
+
+      {/* answers form */}
+      <div className={answerVisibility ? '' : styles.invisible}>
+        <label htmlFor={`answer_${question.id}`}>Answer</label>
+        <textarea onChange={updateNewAnswer} id={`answer_${question.id}`} value={newAnswer}></textarea>
+        <label htmlFor={`checkbox_${question.id}`}>Set questions as answered</label>
+        <input type='checkbox' onChange={answeredCheckbox} />
+        <Button size='large' onClick={addAnswer}>Post</Button>
+      </div>
+
     </div>
+
+
   )
 }

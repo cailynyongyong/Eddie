@@ -51,7 +51,7 @@ const Students: React.FunctionComponent<IPageProps> = props => {
         <Box sx={{ display: 'flex' }}>
 
           {/* Links to other sites and profile info */}
-          <SideBar active={3} />
+          <SideBar active={3} authenticated={true} />
 
           <Box
             component="main"

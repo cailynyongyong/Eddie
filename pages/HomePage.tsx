@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import firebase from '../firebase/index';
+import firebase, { auth } from '../firebase/index';
 import Box from '@mui/material/Box';
 import IPageProps from '../interfaces/page.interface';
+import SignUp from '../auth/SignUpPage';
 import QuestionObj from '../interfaces/question.interface';
 import Header from "../components/modules/Header";
 import SideBar from "../components/modules/Sidebar";
 import QuestionFilters from "../components/modules/QuestionFilters";
 import Question from "../components/modules/Question";
-import { fabClasses } from '@mui/material';
 
 // id of course, temp measure
 // eventually the page will determine what courses to load depending on the professor
@@ -17,6 +17,8 @@ export const id = '-MriCZgPemTZqde40xSa';
 
 // Home page with course questions
 const HomePage: React.FunctionComponent<IPageProps> = props => {
+
+  const [authenticated, updateAuthentication] = useState(auth.currentUser ? true : false);
 
   // hold the questions data for each course
   const [questions, updateQuestions] = useState([]);
@@ -48,7 +50,8 @@ const HomePage: React.FunctionComponent<IPageProps> = props => {
 
       updateQuestions(questionList)
 
-    })
+    });
+    updateAuthentication(auth.currentUser ? true : false);
   }, []);
 
   // manage filters to set questions visible/invisible
@@ -90,7 +93,7 @@ const HomePage: React.FunctionComponent<IPageProps> = props => {
   }
 
   // Assign a ta to a question
-  const assignTas = (question_id: number, ta: {name: string, email: string}) => {
+  const assignTas = (question_id: number, ta: { name: string, email: string }) => {
     // update local values
     // add 1 question to TA
     updateTAs(tas.map((elem) => {
@@ -101,10 +104,10 @@ const HomePage: React.FunctionComponent<IPageProps> = props => {
     // update local questions
     // assign question to ta
     updateQuestions(questions.map((elem) => {
-      elem.id === question_id ? elem.ta = {name: ta.name, email: ta.email} : '';
+      elem.id === question_id ? elem.ta = { name: ta.name, email: ta.email } : '';
       return elem
     }));
-    
+
     // get course database from firebase
     const courseRef = firebase.database().ref('Courses').child(id);
 
@@ -112,16 +115,53 @@ const HomePage: React.FunctionComponent<IPageProps> = props => {
     courseRef.update({
       tas: tas,
       questions: questions.map((elem) => {
-        return {... elem, invisible: []}
+        return { ...elem, invisible: [] }
       })
     });
-    
-    
+
+
+  }
+
+  // Add answer to questions
+  const addAnswer = (question_id: number, account: {name: string, email: string}, answer: string, answered: boolean) => {
+    // update questions locally
+    updateQuestions(questions.map((elem) => {
+      if (question_id === elem.id) {
+        elem.answers.push({ answer: answer, author: account });
+        elem.answered = answered;
+
+        // if answered and assigned to TA, reduces that TA's question count
+        answered && elem.ta.name ? updateTAs(tas.map((e) => {
+          e.email === elem.ta.email ? e.assignedQuestions-- : '';
+          return e;
+        })) : '';
+      }
+
+      return elem;
+    }));
+
+    // update firebase
+    const courseRef = firebase.database().ref('Courses').child(id);
+
+    // update database values
+    courseRef.update({
+      tas: tas,
+      questions: questions.map((elem) => {
+        return { ...elem, invisible: [] } // firebase won't store empty array
+      })
+    });
+
+  }
+
+  // log in user
+  const signIn = () => {
+    updateAuthentication(true);
+    console.log(authenticated);
   }
 
   // map all posted questions to the Question React module
   const questionsElem = questions.map((elem, index) => {
-    return <Question question={elem} tas={tas} update={assignTas} />
+    return <Question question={elem} tas={tas} update={assignTas} addAnswer={addAnswer} />
   });
 
 
@@ -129,7 +169,7 @@ const HomePage: React.FunctionComponent<IPageProps> = props => {
     <Box sx={{ display: 'flex' }}>
 
       {/* Links to other sites and profile info */}
-      <SideBar active={0} />
+      <SideBar active={0} authenticated={authenticated} authenticate={signIn}/>
 
       <Box component='main' sx={{ flexGrow: 1, p: 3 }}>
 
@@ -142,11 +182,11 @@ const HomePage: React.FunctionComponent<IPageProps> = props => {
 
         <div>
           {/* Filters to manage which questions get displayed */}
-          <QuestionFilters update={filterQuestions} />
+          {authenticated ? <QuestionFilters update={filterQuestions} /> : <SignUp authenticate={signIn} />}
         </div>
         <div>
           {/* List of question react objects to display */}
-          {questionsElem}
+          { authenticated ? questionsElem : ''}
         </div>
       </Box>
     </Box>

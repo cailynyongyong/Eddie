@@ -5,7 +5,11 @@ import IPageProps from '../interfaces/page.interface';
 import { SignInWithSocialMedia } from '../components/modules/auth';
 import { Providers } from '../firebase/index';
 
-const SignUpPage: React.FunctionComponent<IPageProps> = props => {
+interface Props {
+    authenticate: any
+}
+
+const SignUp = (props: Props) => {
     const [authenticating, setAuthenticating] = useState<boolean>(false);
     const [error, setError] = useState<string>('');
     const history = useHistory();
@@ -17,6 +21,7 @@ const SignUpPage: React.FunctionComponent<IPageProps> = props => {
 
         SignInWithSocialMedia(provider)
             .then(result => {
+                props.authenticate();
                 history.push('/');
             })
             .catch(error => {
@@ -28,25 +33,17 @@ const SignUpPage: React.FunctionComponent<IPageProps> = props => {
     return (
         <div className="AuthLogin">
             <div className="auth-main-container">
-                <div>
-                    <h1 >Welcome to React App</h1>
-                    <p >Please Signup to continue by choosing one of the options below.</p>
-                </div>
                 <div className="auth-btn-wrapper">
                     <button
                         disabled={authenticating}
                         onClick={() => signInWithSocialMedia(Providers.google)}
                     >
-                        SignUp with Google</button>
-                    
-
-                    <Link to={`/`}>
-                        <button>Back To Home Page</button>
-                    </Link>
+                        SignUp with Google
+                    </button>
                 </div>
             </div>
         </div>
     );
 }
 
-export default SignUpPage;
+export default SignUp;

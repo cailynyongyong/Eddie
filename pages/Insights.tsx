@@ -11,7 +11,7 @@ const Insights: React.FunctionComponent<IPageProps> = props => {
     <Box sx={{ display: 'flex' }}>
         
         {/* Links to other sites and profile info */} 
-        <SideBar active={2}/>
+        <SideBar active={2} authenticated={true} />
 
         <Box
           component="main"

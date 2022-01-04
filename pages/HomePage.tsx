@@ -9,6 +9,7 @@ import SideBar from "../components/modules/Sidebar";
 import QuestionFilters from "../components/modules/QuestionFilters";
 import Question from "../components/modules/Question";
 import Script from 'next/script';
+import Login from '../components/modules/Login';
 
 // id of course, temp measure
 // eventually the page will determine what courses to load depending on the professor
@@ -183,7 +184,7 @@ const HomePage: React.FunctionComponent<IPageProps> = props => {
 
         <div>
           {/* Filters to manage which questions get displayed */}
-          {authenticated ? <QuestionFilters update={filterQuestions} /> : <SignUp authenticate={signIn} />}
+          {authenticated ? <QuestionFilters update={filterQuestions} /> : <Login authenticate={signIn} />}
         </div>
         <div>
           {/* List of question react objects to display */}

@@ -1,0 +1,33 @@
+#btn:visited {
+    color: black;
+}
+
+#btn:hover {
+    color: white;
+    background-color: #2361ffb4;
+}
+
+#btn {
+    color: #2361FF;
+    background-color: #f3f3f8;
+    /* border-radius: 5%; */
+    text-decoration: none;
+}
+
+#logo {
+    font-size: 40px;
+    margin: auto;
+    margin-left: 20px;
+}
+
+#btnContainer #btn:hover {
+    color: #2361FF;
+    background-color: #FFFFFF;
+}
+
+#btnContainer #btn {
+    color: #FFFFFF;
+    background-color: #5182ffee;
+    /* border-radius: 5%; */
+    text-decoration: none;
+}

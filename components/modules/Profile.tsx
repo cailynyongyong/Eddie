@@ -34,7 +34,7 @@ export default function Profile() {
         const logOut = () => {
             // firebase
             auth.signOut();
-            window.location.reload(false);
+            window.location.reload();
         }
         
         return (

@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { FormControl, InputLabel, MenuItem } from '@mui/material';
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import styles from '../../styles/Profile.module.css';
+import firebase, { auth } from '../../firebase/index';
+
 
 // Profile dropdown for navbar
 export default function Profile() {
@@ -20,16 +22,27 @@ export default function Profile() {
         },
         {
             field: 'Sign Out',
-            link: '/aut/signup',
+            link: '/',
             icon: ''
         }
     ]
    
     // Map fields to react component MenuItem
     const menuItems = fields.map((elem, index) => {
+        
+        // signs user out
+        const logOut = () => {
+            // firebase
+            auth.signOut();
+            window.location.reload(false);
+        }
+        
         return (
             <MenuItem value={index}>
-                <Link className={styles.link} to={elem.link}>
+                <Link 
+                    className={styles.link} to={elem.link}
+                    onClick={(elem.field === 'Sign Out') ? () => { logOut() } : () => {}}
+                >
                     {elem.icon}
                     {elem.field}
                 </Link>

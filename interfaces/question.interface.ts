@@ -2,7 +2,7 @@ import Answer from './answer.interface';
 
 export default interface QuestionObj {
     questionType: string,
-    questionCount: number,
+    upvoteCount: number,
     question: string,
     askedBy: number,
     description: string,

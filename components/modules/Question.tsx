@@ -29,28 +29,24 @@ export default function Question(props: Props) {
   const bull = (
     <Box
       component="span"
-      sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
+      sx={{ display: 'inline-block', mx: '10px', transform: 'scale(0.8)' }}
     >
       •
     </Box>
   );
 
   // answered question vs question left unanswered
-  const answer = () => {
-    if (question.answered) {
-      // to be updated later
-      return (
-        <Typography>
-          Answered
-        </Typography>
-      );
-    }
-    return (
-      <Button onClick={() => {updateVisibility(!answerVisibility)}} className={`${styles.btn} ${styles.btn2}`} variant="contained" size="large">
-        Answer
-      </Button>
-    );
-  }
+  const answer = (!question.answered) ?
+    (
+      <Button
+        onClick={() => { updateVisibility(!answerVisibility) }}
+        className={`${styles.btn} ${styles.btn2}`}
+        variant="contained"
+        size="large"
+      >
+        Add Answer
+      </Button>) :
+    (<></>);
 
   // create tas for dropdown menu
   const taOptions = props.tas.map((elem) => {
@@ -64,15 +60,16 @@ export default function Question(props: Props) {
   })
 
   // question with no ta assigned vs question with ta assigned
-  const ta = () => {
-    if (question.ta.name) {
-      return (
-        <Typography>
-          Assigned to {question.ta.name}
-        </Typography>
-      );
-    }
-    return (
+  const ta = (question.ta.name) ?
+    (
+      <Typography
+        variant='body1'
+        className={styles.assignedTa}
+      >
+        Assigned to {question.ta.name}
+      </Typography>
+    ) :
+    (
       <DropdownButton
         default='Assign TA'
         options={taOptions}
@@ -80,7 +77,7 @@ export default function Question(props: Props) {
         handleChange={props.update}
       />
     );
-  }
+
 
   // update the newAsnwer variable
   const updateNewAnswer = (e) => {
@@ -92,12 +89,20 @@ export default function Question(props: Props) {
   }
 
   // Create new answer for the question
-  const addAnswer = () => {
+  const addAnswer = (e) => {
     // check if question has been answered
     if (newAnswer.length) {
-      const account = {name: auth.currentUser.displayName, email: auth.currentUser.email};
+      const account = { name: auth.currentUser.displayName, email: auth.currentUser.email };
       props.addAnswer(question.id, account, newAnswer, setAnswered);
     }
+
+    // Close add answer if question is marked as answered
+    updateVisibility(!setAnswered);
+
+    // reset all values
+    updateAnswer('');
+
+    e.preventDefault();
   }
 
   return (
@@ -106,45 +111,64 @@ export default function Question(props: Props) {
       className={`${(question.answered) ? "" : styles.unanswered} ${styles.question_container} ${styles.question} ${question.invisible ? styles.invisible : ''}`}
     >
       <CardContent>
+        <div className={styles.section}>
+          {/* Card title, displaying question itself, and upvotes/times asked */}
+          <Button>
+            <Typography
+              variant="h5"
+              component="h5"
+              display="inline"
+              id={styles.question_content}
+            >
+              {question.question}
+            </Typography>
+          </Button>
 
-        {/* Card title, displaying question type, and upvotes/times asked */}
-        <Typography variant="h5" component="h5" display="inline">
-          {question.questionType.toUpperCase()} QUESTION
-        </Typography>
-        <Typography variant="h6" component="h6" display="inline">
-          {bull} {question.questionCount} student(s) asked
-        </Typography>
-      </CardContent>
+          {/* Number of upvotes */}
+          <Typography variant="h6" component="h6" display="inline">
+            {bull} {question.upvoteCount} student(s) asked
+          </Typography>
 
-      {/* card header */}
-      <CardActions>
-        {/* Questions header */}
-        <Button id={styles.question_content} size="large">{question.question}</Button>
-        <div className={styles.margin_left}>
-          {/* Teacher functions: assign to TA and answer */}
-          {answer()}
-          {ta()}
         </div>
-      </CardActions>
 
-      <CardContent id={styles.description}>
-        <Typography variant="body2">
-          {/* Question body */}
-          {question.description}
-        </Typography>
+        <div className={styles.section}>
+          {/* question type */}
+          <Typography variant='body2' display='inline'>
+            {question.questionType.toUpperCase()} QUESTION
+          </Typography>
+
+          {bull}
+
+          {/* Question tags */}
+          <Typography variant="body2" display='inline'>
+            {question.description} (This should be a list of tags)
+          </Typography>
+        </div>
+
+        {/* Buttons to interact with the question */}
+        <CardActions>
+          {/* Teacher functions: assign to TA and answer */}
+          <Button
+            className={`${styles.btn} ${styles.btn2}`}
+            variant="contained"
+            size="large"
+          >
+            View Answers
+          </Button>
+          {answer}
+          {ta}
+        </CardActions>
+
+        {/* answers form */}
+        <form onSubmit={(e) => {addAnswer(e)}} className={answerVisibility ? '' : styles.invisible}>
+          <label htmlFor={`answer_${question.id}`}>Answer</label>
+          <textarea required onChange={updateNewAnswer} id={`answer_${question.id}`} value={newAnswer}></textarea>
+          <label htmlFor={`checkbox_${question.id}`}>Set questions as answered</label>
+          <input type='checkbox' onChange={answeredCheckbox} />
+          <Button size='large' type='submit'>Post</Button>
+        </form>
       </CardContent>
-
-      {/* answers form */}
-      <div className={answerVisibility ? '' : styles.invisible}>
-        <label htmlFor={`answer_${question.id}`}>Answer</label>
-        <textarea onChange={updateNewAnswer} id={`answer_${question.id}`} value={newAnswer}></textarea>
-        <label htmlFor={`checkbox_${question.id}`}>Set questions as answered</label>
-        <input type='checkbox' onChange={answeredCheckbox} />
-        <Button size='large' onClick={addAnswer}>Post</Button>
-      </div>
 
     </div>
-
-
-  )
+  );
 }

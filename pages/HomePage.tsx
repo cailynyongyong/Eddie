@@ -23,9 +23,12 @@ const HomePage: React.FunctionComponent<IPageProps> = props => {
   const [authenticated, updateAuthentication] = useState(auth.currentUser ? true : false);
 
   // hold the questions data for each course
-  const [questions, updateQuestions] = useState([]);
+  const [questions, updateQuestions] = useState<QuestionObj[]>([]);
   // hold ta data
   const [tas, updateTAs] = useState([])
+
+  // hold number of sections
+  const [sections, updateSections] = useState(0);
 
   // Once content loads, request database for stored questions
   useEffect(() => {
@@ -50,6 +53,8 @@ const HomePage: React.FunctionComponent<IPageProps> = props => {
         return { ...elem, invisible: false }
       });
 
+      updateSections(coursesVal[id]['course']['numSections'])
+
       updateQuestions(questionList)
 
     });
@@ -59,7 +64,8 @@ const HomePage: React.FunctionComponent<IPageProps> = props => {
   // manage filters to set questions visible/invisible
   const [filters, updateFilters] = useState({
     questionType: undefined,
-    answered: undefined
+    answered: undefined,
+    section: undefined
   });
 
 
@@ -91,6 +97,14 @@ const HomePage: React.FunctionComponent<IPageProps> = props => {
         elem.invisible = elem.invisible || elem.answered !== filters.answered;
         return elem;
       }))
+    }
+
+    // apply section filter
+    if (filters.section !== undefined) {
+      updateQuestions(questions.map((elem) => {
+        elem.invisible = elem.invisible || elem.section !== filters.section;
+        return elem;
+      }));
     }
   }
 
@@ -184,7 +198,7 @@ const HomePage: React.FunctionComponent<IPageProps> = props => {
 
         <div>
           {/* Filters to manage which questions get displayed */}
-          {authenticated ? <QuestionFilters update={filterQuestions} /> : <Login authenticate={signIn} />}
+          {authenticated ? <QuestionFilters update={filterQuestions} sections={sections}/> : <Login authenticate={signIn} />}
         </div>
         <div>
           {/* List of question react objects to display */}

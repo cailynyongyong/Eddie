@@ -5,6 +5,7 @@ export default interface QuestionObj {
     upvoteCount: number,
     question: string,
     askedBy: number,
+    section: number,
     description: string,
     answers: Answer[] | undefined,
     answered: boolean,

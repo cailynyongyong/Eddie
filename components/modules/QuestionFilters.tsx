@@ -6,6 +6,7 @@ import DropdownButton from "./DropdownButton";
  * @update function to change the filters needed
  */
 interface Props {
+    sections: number,
     update: any
 }
 
@@ -21,7 +22,7 @@ export default function Filters(props: Props) {
         {
             value: "administrative",
             content: 'Administrative'
-        }, 
+        },
         {
             value: "conceptual",
             content: 'Conceptual'
@@ -42,6 +43,14 @@ export default function Filters(props: Props) {
         }
     ]
 
+    const sections = [{ value: undefined, content: 'All' }]
+    for (let i = 1; i <= props.sections; i++) {
+        sections.push({
+            value: i,
+            content: String(i)
+        });
+    }
+
     return (
         <div>
 
@@ -51,6 +60,9 @@ export default function Filters(props: Props) {
             </Typography>
             <Typography sx={{ m: 3 }} color="text.secondary" display="inline">
                 Status
+            </Typography>
+            <Typography sx={{ m: 10 }} color="text.secondary" display="inline">
+                Section
             </Typography>
 
             {/* Drowdowns for both */}
@@ -65,6 +77,12 @@ export default function Filters(props: Props) {
                     default={'All'}
                     options={answered}
                     category='answered'
+                    handleChange={props.update}
+                />
+                <DropdownButton
+                    default={'All'}
+                    options={sections}
+                    category='section'
                     handleChange={props.update}
                 />
             </div>

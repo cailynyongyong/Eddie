@@ -15,7 +15,7 @@ export default function Login(props: Props) {
         <Box
             sx={
                 {
-                    marginTop: '45px',
+                    marginTop: '85px',
                     paddingLeft: '20px'
                 }
             }

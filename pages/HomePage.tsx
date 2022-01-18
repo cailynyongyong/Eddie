@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import firebase, { auth } from '../firebase/index';
 import Box from '@mui/material/Box';
 import IPageProps from '../interfaces/page.interface';
-import SignUp from '../auth/SignUpPage';
 import QuestionObj from '../interfaces/question.interface';
+import TAObj from '../interfaces/ta.interface';
 import Header from "../components/modules/Header";
 import SideBar from "../components/modules/Sidebar";
 import QuestionFilters from "../components/modules/QuestionFilters";
@@ -20,15 +20,15 @@ export const id = '-MriCZgPemTZqde40xSa';
 // Home page with course questions
 const HomePage: React.FunctionComponent<IPageProps> = props => {
 
-  const [authenticated, updateAuthentication] = useState(auth.currentUser ? true : false);
+  const [authenticated, updateAuthentication] = useState<boolean>(auth.currentUser ? true : false);
 
   // hold the questions data for each course
   const [questions, updateQuestions] = useState<QuestionObj[]>([]);
   // hold ta data
-  const [tas, updateTAs] = useState([])
+  const [tas, updateTAs] = useState<TAObj[]>([])
 
   // hold number of sections
-  const [sections, updateSections] = useState(0);
+  const [sections, updateSections] = useState<number>(0);
 
   // Once content loads, request database for stored questions
   useEffect(() => {
@@ -139,7 +139,7 @@ const HomePage: React.FunctionComponent<IPageProps> = props => {
   }
 
   // Add answer to questions
-  const addAnswer = (question_id: number, account: {name: string, email: string}, answer: string, answered: boolean) => {
+  const addAnswer = (question_id: number, account: { name: string, email: string }, answer: string, answered: boolean) => {
     // update questions locally
     updateQuestions(questions.map((elem) => {
       if (question_id === elem.id) {
@@ -181,11 +181,27 @@ const HomePage: React.FunctionComponent<IPageProps> = props => {
   });
 
 
+  // version of home page when not logged in
+  if (!authenticated) {
+    return (
+      <Box sx={{ display: 'flex' }}>
+
+        {/* Links to other sites and profile info */}
+        <SideBar active={0} authenticated={authenticated} authenticate={signIn} />
+
+        <div>
+          <Login authenticate={signIn} />
+        </div>
+
+      </Box>
+    )
+  }
+
   return (
     <Box sx={{ display: 'flex' }}>
 
       {/* Links to other sites and profile info */}
-      <SideBar active={0} authenticated={authenticated} authenticate={signIn}/>
+      <SideBar active={0} authenticated={authenticated} authenticate={signIn} />
 
       <Box component='main' sx={{ flexGrow: 1, p: 3 }}>
 
@@ -198,19 +214,19 @@ const HomePage: React.FunctionComponent<IPageProps> = props => {
 
         <div>
           {/* Filters to manage which questions get displayed */}
-          {authenticated ? <QuestionFilters update={filterQuestions} sections={sections}/> : <Login authenticate={signIn} />}
+          <QuestionFilters update={filterQuestions} sections={sections} />
         </div>
         <div>
           {/* List of question react objects to display */}
-          { authenticated ? questionsElem : ''}
+          {questionsElem}
         </div>
 
         <div>
-      <div id="fb-root"></div>
+          <div id="fb-root"></div>
 
-      <div id="fb-customer-chat" className="fb-customerchat"></div>
-      <Script strategy="lazyOnload">
-        {`
+          <div id="fb-customer-chat" className="fb-customerchat"></div>
+          <Script strategy="lazyOnload">
+            {`
             var chatbox = document.getElementById('fb-customer-chat');
             chatbox.setAttribute("page_id", "108895094989832");
             chatbox.setAttribute("attribution", "biz_inbox");
@@ -230,8 +246,8 @@ const HomePage: React.FunctionComponent<IPageProps> = props => {
               fjs.parentNode.insertBefore(js, fjs);
             }(document, 'script', 'facebook-jssdk'));
         `}
-      </Script>
-    </div>
+          </Script>
+        </div>
       </Box>
     </Box>
 

@@ -124,11 +124,6 @@ export default function Question(props: Props) {
             </Typography>
           </Button>
 
-          {/* Number of upvotes */}
-          <Typography variant="h6" component="h6" display="inline">
-            {bull} {question.upvoteCount} student(s) asked
-          </Typography>
-
         </div>
 
         <div className={styles.section}>

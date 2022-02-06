@@ -1,8 +1,9 @@
 .question_container {
-    width: 85%;
+    /* width: 85%; */
     /* border: 2px solid #C4C4C4; */
     border: 2px solid #29bb16;
     margin: auto 2%;
+    padding-bottom: 0;
 }
 
 .invisible {
@@ -21,16 +22,11 @@
     text-decoration: underline;
 }
 
-.section {
-    padding: 10px 5px;
-}
-
 .margin_left {
     margin-left: auto;
 }
 
 .btn.btn2 {
-    margin-right: 10px;
     background: #FFFFFF;
     color: #1976d2;
     border: 1px solid #1976d2;
@@ -42,13 +38,6 @@
     text-decoration: underline;
 }
 
-#description {
-    padding-bottom: 25px;
-    margin-left: 35px;
-
-
-}
-
-.assignedTA {
-    padding: 0 20px;
+.assignedTa {
+    text-align: center;
 }
